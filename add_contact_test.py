@@ -20,10 +20,23 @@ class add_contact_test(unittest.TestCase):
         wd = self.wd
         main_page.open_home_page(wd)
         main_page.login_as_admin(wd)
+        # Create new contact and fill its data
+        contact = Contact("Ann", "AT", "Terner", "Tee" )
+        contact.set_company_data("MegaMailGroutOfAllWorld", "MegaMailGroupOfAllWorldCorporation",
+                                 "somewhere beyond the sea")
+        contact.set_emails("ann.terner@megamailgroupofallworldcorporation.com",
+                           "ann@annhomemail.org", "annnew@annhomemail.org")
+        contact.set_homepage("www.somewherebeyondthesea.com")
+        contact.set_phones("112223366", "+7(000)9999911111222", "44444433", "2300011")
+        contact.set_second_info("World 36", "77", "She is my friend")
+        # Create new contact
         self.add_new_contact(wd)
-        self.fill_primary_contact_data(wd)
-        self.fill_secondary_contact_data(wd)
+        self.fill_primary_contact_data(wd, contact)
+        self.fill_secondary_contact_data(wd, contact)
+        self.fill_birthday_data(wd)
+        self.fill_anniversary_data(wd)
         self.submit_contact(wd)
+        # Check contact
         self.return_to_home_page(wd)
         main_page.logout(wd)
 
@@ -36,91 +49,83 @@ class add_contact_test(unittest.TestCase):
     def add_new_contact(self, wd):
         wd.find_element_by_link_text("add new").click()
 
-    def fill_secondary_contact_data(self, wd):
-        # Fill home address
-        wd.find_element_by_name("address2").click()
-        wd.find_element_by_name("address2").clear()
-        wd.find_element_by_name("address2").send_keys("World 36")
-        # Fill home nuber
-        wd.find_element_by_name("phone2").click()
-        wd.find_element_by_name("phone2").clear()
-        wd.find_element_by_name("phone2").send_keys("77")
-        # Fill notes
-        wd.find_element_by_name("notes").click()
-        wd.find_element_by_name("notes").clear()
-        wd.find_element_by_name("notes").send_keys("She is my friend")
-
-    def fill_primary_contact_data(self, wd):
+    def fill_primary_contact_data(self, wd, contact):
         # Fill first name
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys("Ann")
+        wd.find_element_by_name("firstname").send_keys(contact.firstname)
         # Fill middle name
         wd.find_element_by_name("middlename").click()
         wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys("AT")
+        wd.find_element_by_name("middlename").send_keys(contact.middlename)
         # Fill last name
         wd.find_element_by_name("lastname").click()
         wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys("Terner")
+        wd.find_element_by_name("lastname").send_keys(contact.lastname)
         # Fill nickname
         wd.find_element_by_name("nickname").click()
         wd.find_element_by_name("nickname").clear()
-        wd.find_element_by_name("nickname").send_keys("Teen")
+        wd.find_element_by_name("nickname").send_keys(contact.nickname)
         # Fill title
         wd.find_element_by_name("title").click()
         wd.find_element_by_name("title").clear()
-        wd.find_element_by_name("title").send_keys("MegaMailGroutOfAllWorld")
+        wd.find_element_by_name("title").send_keys(contact.title)
         # Fill company
         wd.find_element_by_name("company").click()
         wd.find_element_by_name("company").clear()
-        wd.find_element_by_name("company").send_keys("MegaMailGroupOfAllWorldCorporation")
+        wd.find_element_by_name("company").send_keys(contact.company)
         # Fill company address
         wd.find_element_by_name("address").click()
         wd.find_element_by_name("address").clear()
-        wd.find_element_by_name("address").send_keys("somewhere beyond the sea")
+        wd.find_element_by_name("address").send_keys(contact.work_address)
         # Fill home phone number
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys("112223366")
+        wd.find_element_by_name("home").send_keys(contact.home_phone)
         # Fill mobile phone number
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
-        wd.find_element_by_name("mobile").send_keys("+7(000)9999911111222")
+        wd.find_element_by_name("mobile").send_keys(contact.mobile_phone)
         # Fill work phone number
         wd.find_element_by_name("work").click()
         wd.find_element_by_name("work").clear()
-        wd.find_element_by_name("work").send_keys("44444433")
+        wd.find_element_by_name("work").send_keys(contact.work_phone)
         # Fill fax
         wd.find_element_by_name("fax").click()
         wd.find_element_by_name("fax").clear()
-        wd.find_element_by_name("fax").send_keys("240000")
+        wd.find_element_by_name("fax").send_keys(contact.fax_phone)
         # Fill email
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").clear()
-        wd.find_element_by_name("email").send_keys("ann.terner@megamailgroupofallworldcorporation.com")
+        wd.find_element_by_name("email").send_keys(contact.first_email)
         # Fill second email
         wd.find_element_by_name("email2").click()
         wd.find_element_by_name("email2").clear()
-        wd.find_element_by_name("email2").send_keys("ann@annhomemail.org")
+        wd.find_element_by_name("email2").send_keys(contact.second_email)
         # Fill third email
         wd.find_element_by_name("email3").click()
         wd.find_element_by_name("email3").clear()
-        wd.find_element_by_name("email3").send_keys("ann@annhomemail.org")
+        wd.find_element_by_name("email3").send_keys(contact.third_email)
         # Fill home page
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
-        wd.find_element_by_name("homepage").send_keys("www.somewherebeyondthesea.com")
-        # Fill birthday day
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[5]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[5]").click()
-        # Fill birthday month
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[3]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[3]").click()
-        # Fill birthday year
-        wd.find_element_by_name("byear").click()
-        wd.find_element_by_name("byear").clear()
-        wd.find_element_by_name("byear").send_keys("1988")
+        wd.find_element_by_name("homepage").send_keys(contact.homepage)
+
+    def fill_secondary_contact_data(self, wd, contact):
+        # Fill home address
+        wd.find_element_by_name("address2").click()
+        wd.find_element_by_name("address2").clear()
+        wd.find_element_by_name("address2").send_keys(contact.second_address)
+        # Fill home number
+        wd.find_element_by_name("phone2").click()
+        wd.find_element_by_name("phone2").clear()
+        wd.find_element_by_name("phone2").send_keys(contact.second_home)
+        # Fill notes
+        wd.find_element_by_name("notes").click()
+        wd.find_element_by_name("notes").clear()
+        wd.find_element_by_name("notes").send_keys(contact.second_notes)
+
+    def fill_anniversary_data(self, wd):
         # Fill anniversary day
         if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[12]").is_selected():
             wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[12]").click()
@@ -131,6 +136,18 @@ class add_contact_test(unittest.TestCase):
         wd.find_element_by_name("ayear").click()
         wd.find_element_by_name("ayear").clear()
         wd.find_element_by_name("ayear").send_keys("2010")
+
+    def fill_birthday_data(self, wd):
+        # Fill birthday day
+        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[5]").is_selected():
+            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[5]").click()
+        # Fill birthday month
+        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[3]").is_selected():
+            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[3]").click()
+        # Fill birthday year
+        wd.find_element_by_name("byear").click()
+        wd.find_element_by_name("byear").clear()
+        wd.find_element_by_name("byear").send_keys("1988")
 
     def tearDown(self):
         self.wd.quit()

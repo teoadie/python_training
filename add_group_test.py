@@ -24,7 +24,8 @@ class add_group_test(unittest.TestCase):
         main_page.open_home_page(wd)
         main_page.login_as_admin(wd)
         self.open_groups_page(wd)
-        self.create_group(wd, Group(name='Best friends', header='My best friends', footer='Hell yeah'))
+        group = Group(name='Best friends', header='My best friends', footer='Hell yeah')
+        self.create_group(wd, group)
         self.return_to_groups_page(wd)
         main_page.logout(wd)
 
@@ -33,7 +34,8 @@ class add_group_test(unittest.TestCase):
         main_page.open_home_page(wd)
         main_page.login_as_admin(wd)
         self.open_groups_page(wd)
-        self.create_group(wd, Group(name='', header='', footer=''))
+        group = Group(name='', header='', footer='')
+        self.create_group(wd, group)
         self.return_to_groups_page(wd)
         main_page.logout(wd)
 
