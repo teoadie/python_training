@@ -21,14 +21,14 @@ class add_contact_test(unittest.TestCase):
         main_page.open_home_page(wd)
         main_page.login_as_admin(wd)
         # Create new contact and fill its data
-        contact = Contact("Ann", "AT", "Terner", "Tee" )
-        contact.set_company_data("MegaMailGroutOfAllWorld", "MegaMailGroupOfAllWorldCorporation",
-                                 "somewhere beyond the sea")
-        contact.set_emails("ann.terner@megamailgroupofallworldcorporation.com",
-                           "ann@annhomemail.org", "annnew@annhomemail.org")
+        contact = Contact(firstname="Ann", middlename="AT", lastname="Terner", nickname="Tee" )
+        contact.set_company_data(title="MegaMailGroutOfAllWorld", company="MegaMailGroupOfAllWorldCorporation",
+                                 address="somewhere beyond the sea")
+        contact.set_emails(first="ann.terner@megamailgroupofallworldcorporation.com",
+                           second="ann@annhomemail.org", third="annnew@annhomemail.org")
         contact.set_homepage("www.somewherebeyondthesea.com")
-        contact.set_phones("112223366", "+7(000)9999911111222", "44444433", "2300011")
-        contact.set_second_info("World 36", "77", "She is my friend")
+        contact.set_phones(home="112223366", mobile="+7(000)9999911111222", work="44444433", fax="2300011")
+        contact.set_second_info(address="World 36", home="77", notes="She is my friend")
         # Create new contact
         self.add_new_contact(wd)
         self.fill_primary_contact_data(wd, contact)
@@ -56,13 +56,13 @@ class add_contact_test(unittest.TestCase):
         main_page.open_home_page(wd)
         main_page.login_as_admin(wd)
         # Create new contact and fill its data
-        contact = Contact("Ann", "AT", "Terner", "Tee" )
-        contact.set_company_data("MegaMailGroutOfAllWorld", "MegaMailGroupOfAllWorldCorporation",
-                                 "somewhere beyond the sea")
-        contact.set_emails("ann.terner@megamailgroupofallworldcorporation.com",
-                           "ann@annhomemail.org", "annnew@annhomemail.org")
+        contact = Contact(firstname="Ann", middlename="AT", lastname="Terner", nickname="Tee" )
+        contact.set_company_data(title="MegaMailGroutOfAllWorld", company="MegaMailGroupOfAllWorldCorporation",
+                                 address="somewhere beyond the sea")
+        contact.set_emails(first="ann.terner@megamailgroupofallworldcorporation.com",
+                           second="ann@annhomemail.org", third="annnew@annhomemail.org")
         contact.set_homepage("www.somewherebeyondthesea.com")
-        contact.set_phones("112223366", "+7(000)9999911111222", "44444433", "2300011")
+        contact.set_phones(home="112223366", mobile="+7(000)9999911111222", work="44444433", fax="2300011")
         # Create new contact
         self.add_new_contact(wd)
         self.fill_primary_contact_data(wd, contact)
