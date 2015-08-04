@@ -40,6 +40,39 @@ class add_contact_test(unittest.TestCase):
         self.return_to_home_page(wd)
         main_page.logout(wd)
 
+    def test_add_empty_contact(self):
+        wd = self.wd
+        main_page.open_home_page(wd)
+        main_page.login_as_admin(wd)
+        # Create new contact
+        self.add_new_contact(wd)
+        self.submit_contact(wd)
+        # Check contact
+        self.return_to_home_page(wd)
+        main_page.logout(wd)
+
+    def test_add_contact_without_second_info(self):
+        wd = self.wd
+        main_page.open_home_page(wd)
+        main_page.login_as_admin(wd)
+        # Create new contact and fill its data
+        contact = Contact("Ann", "AT", "Terner", "Tee" )
+        contact.set_company_data("MegaMailGroutOfAllWorld", "MegaMailGroupOfAllWorldCorporation",
+                                 "somewhere beyond the sea")
+        contact.set_emails("ann.terner@megamailgroupofallworldcorporation.com",
+                           "ann@annhomemail.org", "annnew@annhomemail.org")
+        contact.set_homepage("www.somewherebeyondthesea.com")
+        contact.set_phones("112223366", "+7(000)9999911111222", "44444433", "2300011")
+        # Create new contact
+        self.add_new_contact(wd)
+        self.fill_primary_contact_data(wd, contact)
+        self.fill_birthday_data(wd)
+        self.fill_anniversary_data(wd)
+        self.submit_contact(wd)
+        # Check contact
+        self.return_to_home_page(wd)
+        main_page.logout(wd)
+
     def return_to_home_page(self, wd):
         wd.find_element_by_link_text("home page").click()
 
