@@ -3,7 +3,8 @@ import unittest
 
 from selenium.webdriver.firefox.webdriver import WebDriver
 from model.group_data import Group
-from function import main_page
+from pages import main_page
+from pages import new_group_page
 
 
 def is_alert_present(wd):
@@ -29,13 +30,27 @@ class add_group_test(unittest.TestCase):
         self.return_to_groups_page(wd)
         main_page.logout(wd)
 
-    def test_add_empty_group(self):
+    def test_add_group_with_spaces(self):
         wd = self.wd
         main_page.open_home_page(wd)
         main_page.login_as_admin(wd)
         self.open_groups_page(wd)
         group = Group(name='', header='', footer='')
         self.create_group(wd, group)
+        self.return_to_groups_page(wd)
+        main_page.logout(wd)
+
+    def test_add_empty_group(self):
+        wd = self.wd
+        main_page.open_home_page(wd)
+        main_page.login_as_admin(wd)
+        self.open_groups_page(wd)
+        # Init group creation
+        wd.find_element_by_name('new').click()
+        # Clear group form
+        new_group_page.clear_new_group_form(wd)
+        # Confirm group creation
+        new_group_page.confirm_group_creation(wd)
         self.return_to_groups_page(wd)
         main_page.logout(wd)
 
@@ -46,18 +61,12 @@ class add_group_test(unittest.TestCase):
     def create_group(self, wd, group):
         # Init group creation
         wd.find_element_by_name('new').click()
+        # Clear group form
+        new_group_page.clear_new_group_form(wd)
         # Fill group data
-        wd.find_element_by_name('group_name').click()
-        wd.find_element_by_name('group_name').clear()
-        wd.find_element_by_name('group_name').send_keys(group.name)
-        wd.find_element_by_name('group_header').click()
-        wd.find_element_by_name('group_header').clear()
-        wd.find_element_by_name('group_header').send_keys(group.header)
-        wd.find_element_by_name('group_footer').click()
-        wd.find_element_by_name('group_footer').clear()
-        wd.find_element_by_name('group_footer').send_keys(group.footer)
+        new_group_page.fill_group_page(wd, group)
         # Confirm group creation
-        wd.find_element_by_name('submit').click()
+        new_group_page.confirm_group_creation(wd)
 
     def return_to_groups_page(self, wd):
         # Return to group page

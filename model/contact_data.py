@@ -2,7 +2,6 @@ __author__ = 'Teo'
 
 
 class Contact:
-
     def __init__(self, firstname, middlename, lastname, nickname):
         self.firstname = firstname
         self.middlename = middlename
@@ -33,3 +32,12 @@ class Contact:
         self.second_home = home
         self.second_notes = notes
 
+    def set_birthday(self, day, month, year):
+        self.birthday_day = day
+        self.birthday_month = month
+        self.birthday_year = year
+
+    def set_anniversary(self, day, month, year):
+        self.anniversary_day = day
+        self.anniversary_month = month
+        self.anniversary_year = year
