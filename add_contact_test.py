@@ -37,8 +37,6 @@ class add_contact_test(unittest.TestCase):
         contact.set_anniversary(day="31", month="7", year="2010")
         # Create new contact
         self.add_new_contact(wd)
-        # Clear form
-        new_contact_page.clear_new_contact_form(wd)
         # Fill form with data
         new_contact_page.fill_primary_contact_data(wd, contact)
         new_contact_page.fill_secondary_contact_data(wd, contact)
@@ -78,8 +76,6 @@ class add_contact_test(unittest.TestCase):
         contact.set_anniversary(day="1", month="1", year=" ")
         # Create new contact
         self.add_new_contact(wd)
-        # Clear form
-        new_contact_page.clear_new_contact_form(wd)
         # Fill form with data
         new_contact_page.fill_primary_contact_data(wd, contact)
         new_contact_page.fill_secondary_contact_data(wd, contact)

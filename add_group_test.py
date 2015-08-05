@@ -35,7 +35,7 @@ class add_group_test(unittest.TestCase):
         main_page.open_home_page(wd)
         main_page.login_as_admin(wd)
         self.open_groups_page(wd)
-        group = Group(name='', header='', footer='')
+        group = Group(name=' ', header=' ', footer=' ')
         self.create_group(wd, group)
         self.return_to_groups_page(wd)
         main_page.logout(wd)
@@ -61,8 +61,6 @@ class add_group_test(unittest.TestCase):
     def create_group(self, wd, group):
         # Init group creation
         wd.find_element_by_name('new').click()
-        # Clear group form
-        new_group_page.clear_new_group_form(wd)
         # Fill group data
         new_group_page.fill_group_page(wd, group)
         # Confirm group creation
