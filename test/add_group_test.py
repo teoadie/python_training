@@ -1,31 +1,31 @@
 # -*- coding: utf-8 -*-
 import pytest
-from fixtures.group_fixture import GroupFixture
+from fixture.application import Application
 from model.group_data import Group
 
 
 @pytest.fixture
 def app(request):
-    fixture = GroupFixture()
+    fixture = Application()
     request.addfinalizer(fixture.destroy)
     return fixture
 
 
 def test_add_group(app):
-    app.login()
+    app.session.login_as_admin()
     group = Group(name='Best friends', header='My best friends', footer='Hell yeah')
-    app.open_group_page_and_create_new_group(group)
-    app.logout()
+    app.group.create(group)
+    app.session.logout()
 
 
 def test_add_group_with_spaces(app):
-    app.login()
+    app.session.login_as_admin()
     group = Group(name=' ', header=' ', footer=' ')
-    app.open_group_page_and_create_new_group(group)
-    app.logout()
+    app.group.create(group)
+    app.session.logout()
 
 
 def test_add_empty_group(app):
-    app.login()
-    app.open_group_page_and_create_new_group(None)
-    app.logout()
+    app.session.login_as_admin()
+    app.group.create(None)
+    app.session.logout()

@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 import pytest
-from fixtures.contact_fixture import ContactFixture
+from fixture.application import Application
 from model.contact_data import Contact
+
 
 @pytest.fixture
 def app(request):
-    fixture = ContactFixture()
+    fixture = Application()
     request.addfinalizer(fixture.destroy)
     return fixture
 
@@ -23,18 +24,18 @@ def test_add_contact(app):
     contact.set_birthday(day="4", month="4", year="1987")
     contact.set_anniversary(day="31", month="7", year="2010")
     # Create new contact
-    app.login()
-    app.open_contact_page_and_create_new_contact(contact)
+    app.session.login_as_admin()
+    app.contact.create(contact)
     # logout
-    app.logout()
+    app.session.logout()
 
 
 def test_add_empty_contact(app):
     # Create new contact
-    app.login()
-    app.open_contact_page_and_create_new_contact(None)
+    app.session.login_as_admin()
+    app.contact.create(None)
     # logout
-    app.logout()
+    app.session.logout()
 
 
 def test_add_contact_with_spaces_in_fields(app):
@@ -48,7 +49,7 @@ def test_add_contact_with_spaces_in_fields(app):
     contact.set_birthday(day="1", month="1", year=" ")
     contact.set_anniversary(day="1", month="1", year=" ")
     # Create new contact
-    app.login()
-    app.open_contact_page_and_create_new_contact(contact)
+    app.session.login_as_admin()
+    app.contact.create(contact)
     # logout
-    app.logout()
+    app.session.logout()
