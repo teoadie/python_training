@@ -29,3 +29,25 @@ class ContactUtils:
 
     def open_new_contact_page(self):
         self.app.wd.find_element_by_link_text("add new").click()
+
+    def delete(self, contact_position):
+        wd = self.app.wd
+        # Select numbered contact
+        contact_position += 1
+        wd.find_element_by_xpath("//div[@id='content']/form[@name='MainForm']/table/tbody/tr[" + contact_position +
+                                 "]/td[0]/input").click()
+        # Delete it
+        wd.find_element_by_xpath("//div[@id='content']/form[@name='MainForm']/div[2]/input").click()
+        # return to home page
+        wd.switch_to_alert().accept()
+
+
+    def delete_all_contacts(self):
+        wd = self.app.wd
+        # Select numbered contact
+        if not wd.find_element_by_id("MassCB").is_selected():
+            wd.find_element_by_id("MassCB").click()
+        # Delete it
+        wd.find_element_by_xpath("//div[@id='content']/form[@name='MainForm']/div[2]/input").click()
+        # return to home page
+        wd.switch_to_alert().accept()

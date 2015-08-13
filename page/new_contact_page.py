@@ -60,9 +60,10 @@ class ContactPage:
         wd.find_element_by_name("lastname").clear()
         wd.find_element_by_name("lastname").send_keys(contact.lastname)
         # Fill nickname
-        wd.find_element_by_name("nickname").click()
-        wd.find_element_by_name("nickname").clear()
-        wd.find_element_by_name("nickname").send_keys(contact.nickname)
+        if contact.nickname != None:
+            wd.find_element_by_name("nickname").click()
+            wd.find_element_by_name("nickname").clear()
+            wd.find_element_by_name("nickname").send_keys(contact.nickname)
         # Fill title
         wd.find_element_by_name("title").click()
         wd.find_element_by_name("title").clear()

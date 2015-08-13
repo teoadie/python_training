@@ -1,7 +1,7 @@
 __author__ = 'Teo'
 
 
-class GroupPage:
+class GroupEditPage:
 
     def __init__(self, app):
         self.app = app
@@ -26,3 +26,6 @@ class GroupPage:
 
     def confirm_group_creation(self):
         self.app.wd.find_element_by_name('submit').click()
+
+    def confirm_group_update(self):
+        self.app.wd.find_element_by_name('update').click()
