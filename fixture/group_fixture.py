@@ -12,7 +12,8 @@ class GroupUtils:
 
     def create(self, group):
         # Create group
-        self.fill_group_data(group)
+        self.groups_page.click_new_group_button()
+        self.group_edit_page.fill_group_page(group)
         # Confirm group creation
         self.group_edit_page.confirm_group_creation()
         # Return to home page
@@ -22,17 +23,6 @@ class GroupUtils:
         # Open groups page
         wd = self.app.wd
         wd.find_element_by_link_text('groups').click()
-
-    def fill_group_data(self, group):
-        # Init group creation
-        wd = self.app.wd
-        wd.find_element_by_name('new').click()
-        # Fill group data
-        if group != None:
-            self.group_edit_page.fill_group_page(group)
-        else:
-            # If group is null, just clear form
-            self.group_edit_page.clear_new_group_form()
 
     def return_to_groups_page(self):
         # Return to group page
@@ -47,14 +37,14 @@ class GroupUtils:
         # Return to empty group page
         self.return_to_groups_page()
 
-    def delete_groups_by_positions(self, groups_positions):
+    def delete_selected_groups(self, groups_positions):
         # Select every group from list
         for position in groups_positions:
             self.groups_page.select_group(position)
         # Delete selected groups
         self.groups_page.click_delete_button()
 
-    def update_groups_by_positions(self, groups_positions, group):
+    def update_selected_groups(self, groups_positions, group):
         # Select every group from list
         for position in groups_positions:
             self.groups_page.select_group(position)
@@ -72,6 +62,7 @@ class GroupUtils:
         self.return_to_groups_page()
 
     def prepare_group_test_suite(self):
+        self.app.session.login_as_admin()
         self.open_groups_page()
         # Create empty group
         self.create(None)

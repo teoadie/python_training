@@ -28,3 +28,5 @@ class GroupsPage:
             if not one_group_row.is_selected():
                 one_group_row.click()
 
+    def click_new_group_button(self):
+        self.app.wd.find_element_by_name('new').click()

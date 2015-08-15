@@ -12,7 +12,7 @@ class GroupEditPage:
         wd.find_element_by_name('group_header').clear()
         wd.find_element_by_name('group_footer').clear()
 
-    def fill_group_page(self, group):
+    def fill_group_page_by_group_object(self, group):
         wd = self.app.wd
         wd.find_element_by_name('group_name').click()
         wd.find_element_by_name('group_name').clear()
@@ -29,3 +29,11 @@ class GroupEditPage:
 
     def confirm_group_update(self):
         self.app.wd.find_element_by_name('update').click()
+
+    def fill_group_page(self, group):
+        # Fill group data
+        if group != None:
+            self.fill_group_page_by_group_object(group)
+        else:
+            # If group is null, just clear form
+            self.clear_new_group_form()
