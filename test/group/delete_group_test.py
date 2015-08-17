@@ -6,7 +6,6 @@ def test_delete_the_only_one_group(app):
     app.group.prepare_group_test_suite()
     app.group.create(None)
     app.group.delete_selected_groups([1])
-    app.session.logout()
 
 
 def test_delete_first_group(app):
@@ -18,7 +17,6 @@ def test_delete_first_group(app):
     app.group.create(second_group)
     # Delete first
     app.group.delete_selected_groups([1])
-    app.session.logout()
 
 
 def test_delete_middle_group(app):
@@ -32,7 +30,6 @@ def test_delete_middle_group(app):
     app.group.create(third_group)
     # Delete group
     app.group.delete_selected_groups([2])
-    app.session.logout()
 
 
 def test_delete_last_group(app):
@@ -46,7 +43,6 @@ def test_delete_last_group(app):
     app.group.create(third_group)
     # Delete group
     app.group.delete_selected_groups([3])
-    app.session.logout()
 
 
 def test_delete_all_selected_groups(app):
@@ -57,7 +53,6 @@ def test_delete_all_selected_groups(app):
     app.group.create(None)
     # Select all groups and delete them
     app.group.delete_all_groups()
-    app.session.logout()
 
 
 def test_delete_several_selected_groups(app):
@@ -73,4 +68,3 @@ def test_delete_several_selected_groups(app):
     app.group.create(fourth_group)
     # Select two groups and delete them
     app.group.delete_selected_groups([1, 3])
-    app.session.logout()

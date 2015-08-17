@@ -17,16 +17,12 @@ def test_add_contact(app):
     # Create new contact
     app.contact.prepare_contact_test_suite()
     app.contact.create(contact)
-    # logout
-    app.session.logout()
 
 
 def test_add_empty_contact(app):
     # Create new contact
     app.contact.prepare_contact_test_suite()
     app.contact.create(None)
-    # logout
-    app.session.logout()
 
 
 def test_add_contact_with_spaces_in_fields(app):
@@ -42,8 +38,6 @@ def test_add_contact_with_spaces_in_fields(app):
     # Create new contact
     app.contact.prepare_contact_test_suite()
     app.contact.create(contact)
-    # logout
-    app.session.logout()
 
 
 def test_add_several_contacts(app):
@@ -54,5 +48,3 @@ def test_add_several_contacts(app):
     app.contact.prepare_contact_test_suite()
     app.contact.create(first_contact)
     app.contact.create(second_contact)
-    # logout
-    app.session.logout()

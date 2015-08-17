@@ -62,9 +62,5 @@ class GroupUtils:
         self.return_to_groups_page()
 
     def prepare_group_test_suite(self):
-        self.app.session.login_as_admin()
         self.open_groups_page()
-        # Create empty group
-        self.create(None)
-        # Delete all groups
         self.delete_all_groups()

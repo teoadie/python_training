@@ -61,6 +61,5 @@ class ContactUtils:
         self.contacts_page.click_delete_button()
 
     def prepare_contact_test_suite(self):
-        self.app.session.login_as_admin()
         # Delete all contacts
         self.delete_all_contacts()

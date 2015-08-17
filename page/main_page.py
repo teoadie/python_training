@@ -26,6 +26,27 @@ class MainPage:
     def login_as_admin(self):
         self.login('admin', 'secret')
 
+    def ensure_login(self, username, password):
+        if self.is_logged_in():
+            if self.is_logged_in_as_user(username):
+                return
+            else:
+                self.logout()
+        self.login(username, password)
+
+    def ensure_login_as_admin(self):
+        self.ensure_login('admin', 'secret')
+
     def logout(self):
-        # Logout
         self.app.wd.find_element_by_link_text('Logout').click()
+
+    def ensure_logout(self):
+        if self.is_logged_in():
+            self.logout()
+
+    def is_logged_in(self):
+        return len(self.app.wd.find_elements_by_link_text('Logout')) > 0
+
+    def is_logged_in_as_user(self, username):
+        current_login = self.app.wd.find_element_by_xpath('//div/div[1]/form/b').text
+        return current_login == "(" + username + ")"

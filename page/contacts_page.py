@@ -8,9 +8,7 @@ class ContactsPage:
 
     def click_delete_button(self):
         self.app.wd.find_element_by_xpath("//div[@id='content']/form[@name='MainForm']/div[2]/input").click()
-        # return to home page
-        alert = self.app.wd.switch_to_alert()
-        alert.accept()
+        self.app.wd.switch_to_alert().accept()
 
     def click_edit_contact_button(self, contact_position):
         contact_position += 1
@@ -33,8 +31,10 @@ class ContactsPage:
 
     def select_all_contacts(self):
         wd = self.app.wd
-        if not wd.find_element_by_id("MassCB").is_selected():
-            wd.find_element_by_id("MassCB").click()
+        # Select all elements only if there are any rows in contact table
+        if len(wd.find_elements_by_xpath("//table[@id='maintable']/tbody/tr[2]/td")) > 1:
+            if not wd.find_element_by_id("MassCB").is_selected():
+                wd.find_element_by_id("MassCB").click()
 
     def click_new_contact_button(self):
         self.app.wd.find_element_by_link_text("add new").click()

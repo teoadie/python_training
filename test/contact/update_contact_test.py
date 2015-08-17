@@ -34,8 +34,6 @@ def test_update_first_contact(app):
     app.contact.create(second_contact)
     # Update contact
     app.contact.update_contact_from_list(1, new_contact)
-    # logout
-    app.session.logout()
 
 
 def test_update_middle_contact(app):
@@ -72,8 +70,6 @@ def test_update_middle_contact(app):
     app.contact.create(third_contact)
     # Update contact
     app.contact.update_contact_from_list(2, new_contact)
-    # logout
-    app.session.logout()
 
 
 def test_update_last_contact(app):
@@ -110,8 +106,6 @@ def test_update_last_contact(app):
     app.contact.create(second_contact)
     # Update contact
     app.contact.update_contact_from_list(3, new_contact)
-    # logout
-    app.session.logout()
 
 
 def test_clear_contact_data(app):
@@ -132,8 +126,6 @@ def test_clear_contact_data(app):
     app.contact.create(contact)
     # Update contact
     app.contact.update_contact_from_list(1, None)
-    # logout
-    app.session.logout()
 
 
 def test_update_contact_from_details_page(app):
@@ -154,5 +146,3 @@ def test_update_contact_from_details_page(app):
     app.contact.create(contact)
     # Update contact
     app.contact.update_contact_from_details_page(1, None)
-    # logout
-    app.session.logout()
