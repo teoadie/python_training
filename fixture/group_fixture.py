@@ -26,9 +26,10 @@ class GroupUtils:
 
     def return_to_groups_page(self):
         # Return to group page
-        wd = self.app.wd
-        if (len(wd.find_elements_by_link_text('group page')) != 0):
+        self.app.set_minimum_wait_element_time()
+        if (len(self.app.wd.find_elements_by_link_text('group page')) != 0):
             wd.find_element_by_link_text('group page').click()
+        self.app.set_default_wait_element_time()
 
     def delete_all_groups(self):
         # Select all existing groups and delete them

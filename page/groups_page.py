@@ -22,13 +22,13 @@ class GroupsPage:
     def select_all_groups(self):
         wd = self.app.wd
         # Select all groups
-        wd.implicitly_wait(1)
+        self.app.set_minimum_wait_element_time()
         if (len(wd.find_elements_by_name("selected[]")) != 0):
             all_groups = wd.find_elements_by_name('selected[]')
             for one_group_row in all_groups:
                 if not one_group_row.is_selected():
                     one_group_row.click()
-        wd.implicitly_wait(3)
+        self.app.set_default_wait_element_time()
 
     def click_new_group_button(self):
         self.app.wd.find_element_by_name('new').click()

@@ -22,7 +22,11 @@ class ContactUtils:
         self.return_to_home_page()
 
     def return_to_home_page(self):
-        self.app.wd.find_element_by_id("logo").click()
+        # Don't click logo if we are already on main page
+        self.app.set_minimum_wait_element_time()
+        if not (len(self.app.wd.find_elements_by_link_text("Last name")) != 0):
+            self.app.wd.find_element_by_id("logo").click()
+        self.app.set_default_wait_element_time()
 
     def delete_selected_contacts(self, contacts_positions):
        # Select every contact from list
@@ -30,6 +34,7 @@ class ContactUtils:
             self.contacts_page.select_contact(position)
         # Delete selected contacts
         self.contacts_page.click_delete_button()
+        self.return_to_home_page()
 
     def delete_contact_from_update_page(self, contact_position):
         self.contacts_page.click_edit_contact_button(contact_position)
@@ -59,6 +64,7 @@ class ContactUtils:
         self.contacts_page.select_all_contacts()
         # Delete it
         self.contacts_page.click_delete_button()
+        self.return_to_home_page()
 
     def prepare_contact_test_suite(self):
         # Delete all contacts

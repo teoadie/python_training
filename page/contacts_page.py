@@ -30,11 +30,13 @@ class ContactsPage:
                                      + str(contact_position) + "]/td[1]/input").click()
 
     def select_all_contacts(self):
+        self.app.set_minimum_wait_element_time()
         wd = self.app.wd
         # Select all elements only if there are any rows in contact table
         if len(wd.find_elements_by_xpath("//table[@id='maintable']/tbody/tr[2]/td")) > 1:
             if not wd.find_element_by_id("MassCB").is_selected():
                 wd.find_element_by_id("MassCB").click()
+        self.app.set_default_wait_element_time()
 
     def click_new_contact_button(self):
         self.app.wd.find_element_by_link_text("add new").click()
