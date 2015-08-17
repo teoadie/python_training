@@ -27,7 +27,8 @@ class GroupUtils:
     def return_to_groups_page(self):
         # Return to group page
         self.app.set_minimum_wait_element_time()
-        if (len(self.app.wd.find_elements_by_link_text('group page')) != 0):
+        wd = self.app.wd
+        if len(wd.find_elements_by_link_text('group page')) != 0:
             wd.find_element_by_link_text('group page').click()
         self.app.set_default_wait_element_time()
 
@@ -52,7 +53,7 @@ class GroupUtils:
         # Click edit group button
         self.groups_page.click_edit_group_button()
         # Fill group data
-        if group != None:
+        if group is not None:
             self.group_edit_page.fill_group_page(group)
         else:
             # If group is null, just clear form

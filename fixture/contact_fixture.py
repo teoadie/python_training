@@ -24,8 +24,9 @@ class ContactUtils:
     def return_to_home_page(self):
         # Don't click logo if we are already on main page
         self.app.set_minimum_wait_element_time()
-        if not (len(self.app.wd.find_elements_by_link_text("Last name")) != 0):
-            self.app.wd.find_element_by_id("logo").click()
+        wd = self.app.wd
+        if not (len(wd.find_elements_by_link_text("Last name")) != 0):
+            wd.find_element_by_id("logo").click()
         self.app.set_default_wait_element_time()
 
     def delete_selected_contacts(self, contacts_positions):
