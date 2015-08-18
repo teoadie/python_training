@@ -45,7 +45,10 @@ class MainPage:
             self.logout()
 
     def is_logged_in(self):
-        return len(self.app.wd.find_elements_by_link_text('Logout')) > 0
+        self.app.set_minimum_wait_element_time()
+        check_result = len(self.app.wd.find_elements_by_link_text('Logout')) > 0
+        self.app.set_default_wait_element_time()
+        return check_result
 
     def is_logged_in_as_user(self, username):
         current_login = self.app.wd.find_element_by_xpath('//div/div[1]/form/b').text
