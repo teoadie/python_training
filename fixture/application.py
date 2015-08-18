@@ -9,7 +9,7 @@ class Application:
 
     def __init__(self):
         self.wd = WebDriver()
-        self.set_default_wait_element_time()
+        self.set_default_waiting_period()
         self.group = GroupUtils(self)
         self.contact = ContactUtils(self)
         self.session = MainPage(self)
@@ -24,8 +24,8 @@ class Application:
     def destroy(self):
         self.wd.quit()
 
-    def set_minimum_wait_element_time(self):
+    def set_minimum_waiting_period(self):
         self.wd.implicitly_wait(0)
 
-    def set_default_wait_element_time(self):
+    def set_default_waiting_period(self):
         self.wd.implicitly_wait(3)

@@ -45,9 +45,9 @@ class MainPage:
             self.logout()
 
     def is_logged_in(self):
-        self.app.set_minimum_wait_element_time()
+        self.app.set_minimum_waiting_period()
         check_result = len(self.app.wd.find_elements_by_link_text("Logout")) > 0
-        self.app.set_default_wait_element_time()
+        self.app.set_default_waiting_period()
         return check_result
 
     def is_logged_in_as_user(self, username):
