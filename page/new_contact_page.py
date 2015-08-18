@@ -46,132 +46,76 @@ class ContactEditPage:
         wd.find_element_by_name("ayear").clear()
 
     def fill_primary_contact_data(self, contact):
-        wd = self.app.wd
         # Fill first name
-        wd.find_element_by_name("firstname").click()
-        wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(contact.firstname)
+        self.fill_string_field("firstname", contact.firstname)
         # Fill middle name
-        wd.find_element_by_name("middlename").click()
-        wd.find_element_by_name("middlename").clear()
-        wd.find_element_by_name("middlename").send_keys(contact.middlename)
+        self.fill_string_field("middlename", contact.middlename)
         # Fill last name
-        wd.find_element_by_name("lastname").click()
-        wd.find_element_by_name("lastname").clear()
-        wd.find_element_by_name("lastname").send_keys(contact.lastname)
+        self.fill_string_field("lastname", contact.lastname)
         # Fill nickname
-        wd.find_element_by_name("nickname").click()
-        wd.find_element_by_name("nickname").clear()
-        if hasattr(contact, "nickname"):
-            wd.find_element_by_name("nickname").send_keys(contact.nickname)
+        self.fill_string_field("nickname", contact.nickname)
         # Fill title
-        wd.find_element_by_name("title").click()
-        wd.find_element_by_name("title").clear()
-        if hasattr(contact, "title"):
-            wd.find_element_by_name("title").send_keys(contact.title)
+        self.fill_string_field("title", contact.title)
         # Fill company
-        wd.find_element_by_name("company").click()
-        wd.find_element_by_name("company").clear()
-        if hasattr(contact, "company"):
-            wd.find_element_by_name("company").send_keys(contact.company)
+        self.fill_string_field("company", contact.company)
         # Fill company address
-        wd.find_element_by_name("address").click()
-        wd.find_element_by_name("address").clear()
-        if hasattr(contact, "work_address"):
-            wd.find_element_by_name("address").send_keys(contact.work_address)
+        self.fill_string_field("address", contact.work_address)
         # Fill home phone number
-        wd.find_element_by_name("home").click()
-        wd.find_element_by_name("home").clear()
-        if hasattr(contact, "home_phone"):
-            wd.find_element_by_name("home").send_keys(contact.home_phone)
+        self.fill_string_field("home", contact.home_phone)
         # Fill mobile phone number
-        wd.find_element_by_name("mobile").click()
-        wd.find_element_by_name("mobile").clear()
-        if hasattr(contact, "mobile_phone"):
-            wd.find_element_by_name("mobile").send_keys(contact.mobile_phone)
+        self.fill_string_field("mobile", contact.mobile_phone)
         # Fill work phone number
-        wd.find_element_by_name("work").click()
-        wd.find_element_by_name("work").clear()
-        if hasattr(contact, "work_phone"):
-            wd.find_element_by_name("work").send_keys(contact.work_phone)
+        self.fill_string_field("work", contact.work_phone)
         # Fill fax
-        wd.find_element_by_name("fax").click()
-        wd.find_element_by_name("fax").clear()
-        if hasattr(contact, "fax_phone"):
-            wd.find_element_by_name("fax").send_keys(contact.fax_phone)
+        self.fill_string_field("fax", contact.fax_phone)
         # Fill email
-        wd.find_element_by_name("email").click()
-        wd.find_element_by_name("email").clear()
-        if hasattr(contact, "first_email"):
-            wd.find_element_by_name("email").send_keys(contact.first_email)
+        self.fill_string_field("email", contact.first_email)
         # Fill second email
-        wd.find_element_by_name("email2").click()
-        wd.find_element_by_name("email2").clear()
-        if hasattr(contact, "second_email"):
-            wd.find_element_by_name("email2").send_keys(contact.second_email)
+        self.fill_string_field("email2", contact.second_email)
         # Fill third email
-        wd.find_element_by_name("email3").click()
-        wd.find_element_by_name("email3").clear()
-        if hasattr(contact, "third_email"):
-            wd.find_element_by_name("email3").send_keys(contact.third_email)
+        self.fill_string_field("email3", contact.third_email)
         # Fill home page
-        wd.find_element_by_name("homepage").click()
-        wd.find_element_by_name("homepage").clear()
-        if hasattr(contact, "homepage"):
-            wd.find_element_by_name("homepage").send_keys(contact.homepage)
+        self.fill_string_field("homepage", contact.homepage)
 
     def fill_secondary_contact_data(self, contact):
-        wd = self.app.wd
         # Fill home address
-        wd.find_element_by_name("address2").click()
-        wd.find_element_by_name("address2").clear()
-        if hasattr(contact, "second_address"):
-            wd.find_element_by_name("address2").send_keys(contact.second_address)
+        self.fill_string_field("address2", contact.second_address)
         # Fill home number
-        wd.find_element_by_name("phone2").click()
-        wd.find_element_by_name("phone2").clear()
-        if hasattr(contact, "second_home"):
-            wd.find_element_by_name("phone2").send_keys(contact.second_home)
+        self.fill_string_field("phone2", contact.second_home)
         # Fill notes
-        wd.find_element_by_name("notes").click()
-        wd.find_element_by_name("notes").clear()
-        if hasattr(contact, "second_notes"):
-            wd.find_element_by_name("notes").send_keys(contact.second_notes)
+        self.fill_string_field("notes", contact.second_notes)
 
     def fill_anniversary_data(self, contact):
         wd = self.app.wd
         # Fill anniversary day
-        if hasattr(contact, "anniversary_day"):
-            if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[" + contact.anniversary_day + "]").is_selected():
-                wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[" + contact.anniversary_day + "]").click()
+        if contact.anniversary_day is not None:
+            anniversary_day_xpath = "//div[@id='content']/form/select[3]//option[" + contact.anniversary_day + "]"
+            if not wd.find_element_by_xpath(anniversary_day_xpath).is_selected():
+                wd.find_element_by_xpath(anniversary_day_xpath).click()
         # Fill anniversary month
-        if hasattr(contact, "anniversary_month"):
-            if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[" + contact.anniversary_month + "]").is_selected():
-                wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[" + contact.anniversary_month + "]").click()
+        if contact.anniversary_month is not None:
+            anniversary_month_xpath = "//div[@id='content']/form/select[4]//option[" + contact.anniversary_month + "]"
+            if not wd.find_element_by_xpath(anniversary_month_xpath).is_selected():
+                wd.find_element_by_xpath(anniversary_month_xpath).click()
         # Fill anniversary year
-        wd.find_element_by_name("ayear").click()
-        wd.find_element_by_name("ayear").clear()
-        if hasattr(contact, "birthday_year"):
-            wd.find_element_by_name("ayear").send_keys(contact.birthday_year)
+        self.fill_string_field("ayear", contact.anniversary_year)
 
     def fill_birthday_data(self, contact):
         wd = self.app.wd
         # Fill birthday day
-        if hasattr(contact, "birthday_day"):
-            if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[" + contact.birthday_day + "]").is_selected():
-                wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[" + contact.birthday_day + "]").click()
+        if contact.birthday_day is not None:
+            birthday_day_xpath = "//div[@id='content']/form/select[1]//option[" + contact.birthday_day + "]"
+            if not wd.find_element_by_xpath(birthday_day_xpath).is_selected():
+                wd.find_element_by_xpath(birthday_day_xpath).click()
         # Fill birthday month
-        if hasattr(contact, "birthday_month"):
-            if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[" + contact.birthday_month + "]").is_selected():
-                wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[" + contact.birthday_month + "]").click()
+        if contact.birthday_month is not None:
+            birthday_month_xpath = "//div[@id='content']/form/select[2]//option[" + contact.birthday_month + "]"
+            if not wd.find_element_by_xpath(birthday_month_xpath).is_selected():
+                wd.find_element_by_xpath(birthday_month_xpath).click()
         # Fill birthday year
-        wd.find_element_by_name("byear").click()
-        wd.find_element_by_name("byear").clear()
-        if hasattr(contact, "anniversary_year"):
-            wd.find_element_by_name("byear").send_keys(contact.anniversary_year)
+        self.fill_string_field("byear", contact.birthday_year)
 
     def confirm_contact_creation(self):
-        #self.app.wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.app.wd.find_element_by_name("submit").click()
 
     def confirm_contact_update(self):
@@ -181,7 +125,7 @@ class ContactEditPage:
         self.app.wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
 
     def fill_contact_data(self, contact):
-        if contact != None:
+        if contact is not None:
             self.fill_primary_contact_data(contact)
             self.fill_secondary_contact_data(contact)
             self.fill_birthday_data(contact)
@@ -189,3 +133,10 @@ class ContactEditPage:
         else:
             # If contact is null, just clear form
             self.clear_new_contact_form()
+
+    def fill_string_field(self, field_name, new_value):
+        wd = self.app.wd
+        wd.find_element_by_name(field_name).clear()
+        if new_value is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).send_keys(new_value)

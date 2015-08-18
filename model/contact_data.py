@@ -7,6 +7,26 @@ class Contact:
         self.middlename = middlename
         self.lastname = lastname
         self.nickname = nickname
+        self.title = None
+        self.company = None
+        self.work_address = None
+        self.home_phone = None
+        self.mobile_phone = None
+        self.work_phone = None
+        self.fax_phone = None
+        self.first_email = None
+        self.second_email = None
+        self.third_email = None
+        self.homepage = None
+        self.second_address = None
+        self.second_home = None
+        self.second_notes = None
+        self.birthday_day = None
+        self.birthday_month = None
+        self.birthday_year = None
+        self.anniversary_day = None
+        self.anniversary_month = None
+        self.anniversary_year = None
 
     def set_company_data(self, title, company, address):
         self.title = title

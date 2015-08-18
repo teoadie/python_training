@@ -13,16 +13,9 @@ class GroupEditPage:
         wd.find_element_by_name('group_footer').clear()
 
     def fill_group_page_by_group_object(self, group):
-        wd = self.app.wd
-        wd.find_element_by_name('group_name').click()
-        wd.find_element_by_name('group_name').clear()
-        wd.find_element_by_name('group_name').send_keys(group.name)
-        wd.find_element_by_name('group_header').click()
-        wd.find_element_by_name('group_header').clear()
-        wd.find_element_by_name('group_header').send_keys(group.header)
-        wd.find_element_by_name('group_footer').click()
-        wd.find_element_by_name('group_footer').clear()
-        wd.find_element_by_name('group_footer').send_keys(group.footer)
+        self.fill_string_field("group_name", group.name)
+        self.fill_string_field("group_header", group.header)
+        self.fill_string_field("group_footer", group.footer)
 
     def confirm_group_creation(self):
         self.app.wd.find_element_by_name('submit').click()
@@ -32,8 +25,15 @@ class GroupEditPage:
 
     def fill_group_page(self, group):
         # Fill group data
-        if group != None:
+        if group is not None:
             self.fill_group_page_by_group_object(group)
         else:
             # If group is null, just clear form
             self.clear_new_group_form()
+
+    def fill_string_field(self, field_name, new_value):
+        wd = self.app.wd
+        wd.find_element_by_name(field_name).clear()
+        if new_value is not None:
+            wd.find_element_by_name(field_name).click()
+            wd.find_element_by_name(field_name).send_keys(new_value)
