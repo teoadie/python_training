@@ -25,8 +25,8 @@ class ContactUtils:
         # Don't click logo if we are already on main page
         self.app.set_minimum_wait_element_time()
         wd = self.app.wd
-        if (not (len(wd.find_elements_by_link_text("Last name")) != 0)) and \
-                (wd.current_url.enswith("/addressbook/")):
+        if not((len(wd.find_elements_by_link_text("Last name")) != 0) and \
+                (wd.current_url.endswith("/addressbook/"))):
             wd.find_element_by_id("logo").click()
         self.app.set_default_wait_element_time()
 
