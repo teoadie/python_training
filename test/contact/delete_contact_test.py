@@ -51,6 +51,12 @@ def test_delete_all_contacts(app):
     app.contact.delete_all_contacts()
 
 
+def test_delete_one_contact(app):
+    if app.contact.count() == 0:
+        app.contact.create(None)
+    app.contact.delete_selected_contacts([1])
+
+
 def test_delete_several_selected_contacts(app):
     app.contact.prepare_contact_test_suite()
     first_contact = Contact(firstname="Ann", middlename="AT", lastname="Arner", nickname="Tee")

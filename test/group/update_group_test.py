@@ -67,3 +67,10 @@ def test_update_several_groups(app):
     # Update group
     changed_group = Group(name='New', header='NG', footer='Better group')
     app.group.update_selected_groups([2, 4], changed_group)
+
+
+def test_update_one_group(app):
+    if app.group.count() == 0:
+        first_group = Group(name='First', header='FG', footer='Group1')
+        app.group.create(first_group)
+    app.group.update_selected_groups([1], None)

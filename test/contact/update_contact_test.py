@@ -19,9 +19,9 @@ def test_update_first_contact(app):
     # Prepare new contact data
     new_contact = Contact(firstname="QAnny", middlename="QAA", lastname="QArnert", nickname="QTaT")
     new_contact.set_company_data(title="MegaMailGroutOfAllWorld2", company="MegaMailGroupOfAllWorldCorporation2",
-                             address="somewhere beyond the sea2")
+                                 address="somewhere beyond the sea2")
     new_contact.set_emails(first="ann.arner2@megamailgroupofallworldcorporation.com",
-                       second="ann2@annhomemail.org", third="annnew2@annhomemail.org")
+                           second="ann2@annhomemail.org", third="annnew2@annhomemail.org")
     new_contact.set_homepage("www.somewherebeyondthesea2.com")
     new_contact.set_phones(home="112223377", mobile="+7(000)9999911111777", work="44444477", fax="2300077")
     new_contact.set_second_info(address="World 77", home="177", notes="She is my best friend")
@@ -53,9 +53,9 @@ def test_update_middle_contact(app):
     # Prepare new contact data
     new_contact = Contact(firstname="QAnny", middlename="QAA", lastname="QArnert", nickname="QTaT")
     new_contact.set_company_data(title="MegaMailGroutOfAllWorld2", company="MegaMailGroupOfAllWorldCorporation2",
-                             address="somewhere beyond the sea2")
+                                 address="somewhere beyond the sea2")
     new_contact.set_emails(first="ann.arner2@megamailgroupofallworldcorporation.com",
-                       second="ann2@annhomemail.org", third="annnew2@annhomemail.org")
+                           second="ann2@annhomemail.org", third="annnew2@annhomemail.org")
     new_contact.set_homepage("www.somewherebeyondthesea2.com")
     new_contact.set_phones(home="112223377", mobile="+7(000)9999911111777", work="44444477", fax="2300077")
     new_contact.set_second_info(address="World 77", home="177", notes="She is my best friend")
@@ -89,9 +89,9 @@ def test_update_last_contact(app):
     # Prepare new contact data
     new_contact = Contact(firstname="Anny", middlename="AA", lastname="Arnert", nickname="TaT")
     new_contact.set_company_data(title="MegaMailGroutOfAllWorld2", company="MegaMailGroupOfAllWorldCorporation2",
-                             address="somewhere beyond the sea2")
+                                 address="somewhere beyond the sea2")
     new_contact.set_emails(first="ann.arner2@megamailgroupofallworldcorporation.com",
-                       second="ann2@annhomemail.org", third="annnew2@annhomemail.org")
+                           second="ann2@annhomemail.org", third="annnew2@annhomemail.org")
     new_contact.set_homepage("www.somewherebeyondthesea2.com")
     new_contact.set_phones(home="112223377", mobile="+7(000)9999911111777", work="44444477", fax="2300077")
     new_contact.set_second_info(address="World 77", home="177", notes="She is my best friend")
@@ -125,6 +125,13 @@ def test_clear_contact_data(app):
     # Create contacts
     app.contact.create(contact)
     # Update contact
+    app.contact.update_contact_from_list(1, None)
+
+
+def test_update_one_contact(app):
+    if app.contact.count() == 0:
+        contact = Contact(firstname="Ann", middlename="AT", lastname="Arner", nickname="Tee")
+        app.contact.create(contact)
     app.contact.update_contact_from_list(1, None)
 
 

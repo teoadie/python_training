@@ -4,7 +4,6 @@ from page.groups_page import GroupsPage
 
 
 class GroupUtils:
-
     def __init__(self, app):
         self.app = app
         self.group_edit_page = GroupEditPage(app)
@@ -26,12 +25,10 @@ class GroupUtils:
 
     def return_to_groups_page(self):
         # Return to group page
-        self.app.set_minimum_waiting_period()
         wd = self.app.wd
         if not ((len(wd.find_elements_by_name("new")) != 0) and
                     (wd.current_url.endswith("/group.php"))):
             wd.find_element_by_link_text("group page").click()
-        self.app.set_default_waiting_period()
 
     def delete_all_groups(self):
         # Select all existing groups and delete them
@@ -67,3 +64,6 @@ class GroupUtils:
     def prepare_group_test_suite(self):
         self.open_groups_page()
         self.delete_all_groups()
+
+    def count(self):
+        return self.groups_page.count_groups()

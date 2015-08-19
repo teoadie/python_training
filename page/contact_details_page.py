@@ -7,4 +7,5 @@ class ContactDetailsPage:
         self.app = app
 
     def click_modify_button(self):
-        self.app.wd.find_element_by_name("modifiy").click()
+        wd = self.app.wd
+        wd.find_element_by_name("modifiy").click()

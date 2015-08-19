@@ -116,13 +116,16 @@ class ContactEditPage:
         self.fill_string_field("byear", contact.birthday_year)
 
     def confirm_contact_creation(self):
-        self.app.wd.find_element_by_name("submit").click()
+        wd = self.app.wd
+        wd.find_element_by_name("submit").click()
 
     def confirm_contact_update(self):
-        self.app.wd.find_element_by_xpath("//div[@id='content']/form[1]/input[1]").click()
+        wd = self.app.wd
+        wd.find_element_by_xpath("//div[@id='content']/form[1]/input[1]").click()
 
     def confirm_contact_delete(self):
-        self.app.wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
+        wd = self.app.wd
+        wd.find_element_by_xpath("//div[@id='content']/form[2]/input[2]").click()
 
     def fill_contact_data(self, contact):
         if contact is not None:

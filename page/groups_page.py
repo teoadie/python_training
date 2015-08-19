@@ -9,10 +9,12 @@ class GroupsPage:
         self.app = app
 
     def click_delete_button(self):
-        self.app.wd.find_element_by_name("delete").click()
+        wd = self.app.wd
+        wd.find_element_by_name("delete").click()
 
     def click_edit_group_button(self):
-        self.app.wd.find_element_by_name("edit").click()
+        wd = self.app.wd
+        wd.find_element_by_name("edit").click()
 
     def select_group(self, group_position):
         wd = self.app.wd
@@ -22,13 +24,16 @@ class GroupsPage:
     def select_all_groups(self):
         wd = self.app.wd
         # Select all groups
-        self.app.set_minimum_waiting_period()
-        if (len(wd.find_elements_by_name("selected[]")) != 0):
+        if len(wd.find_elements_by_name("selected[]")) != 0:
             all_groups = wd.find_elements_by_name("selected[]")
             for one_group_row in all_groups:
                 if not one_group_row.is_selected():
                     one_group_row.click()
-        self.app.set_default_waiting_period()
 
     def click_new_group_button(self):
-        self.app.wd.find_element_by_name("new").click()
+        wd = self.app.wd
+        wd.find_element_by_name("new").click()
+
+    def count_groups(self):
+        wd = self.app.wd
+        return len(wd.find_elements_by_name("selected[]"))

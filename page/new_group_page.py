@@ -18,10 +18,12 @@ class GroupEditPage:
         self.fill_string_field("group_footer", group.footer)
 
     def confirm_group_creation(self):
-        self.app.wd.find_element_by_name("submit").click()
+        wd = self.app.wd
+        wd.find_element_by_name("submit").click()
 
     def confirm_group_update(self):
-        self.app.wd.find_element_by_name("update").click()
+        wd = self.app.wd
+        wd.find_element_by_name("update").click()
 
     def fill_group_page(self, group):
         # Fill group data

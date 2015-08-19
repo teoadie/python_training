@@ -45,7 +45,7 @@ def test_delete_last_group(app):
     app.group.delete_selected_groups([3])
 
 
-def test_delete_all_selected_groups(app):
+def test_delete_all_groups(app):
     app.group.prepare_group_test_suite()
     # Create three groups
     app.group.create(None)
@@ -53,6 +53,12 @@ def test_delete_all_selected_groups(app):
     app.group.create(None)
     # Select all groups and delete them
     app.group.delete_all_groups()
+
+
+def test_delete_one_group(app):
+    if app.group.count() == 0:
+        app.group.create(None)
+    app.group.delete_selected_groups([1])
 
 
 def test_delete_several_selected_groups(app):
