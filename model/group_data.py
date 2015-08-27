@@ -1,6 +1,7 @@
 __author__ = 'Teo'
 from sys import maxsize
 
+
 class Group:
 
     def __init__(self, name, header=None, footer=None, id=None):
