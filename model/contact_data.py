@@ -1,12 +1,14 @@
 __author__ = 'Teo'
+from sys import maxsize
 
 
 class Contact:
-    def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None):
+    def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None, id=None):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
         self.nickname = nickname
+        self.id = id
         self.title = None
         self.company = None
         self.work_address = None
@@ -61,3 +63,18 @@ class Contact:
         self.anniversary_day = day
         self.anniversary_month = month
         self.anniversary_year = year
+
+    def __repr__(self):
+        return "%s:%s %s" % (self.id, self.lastname, self.firstname)
+
+    def __eq__(self, other):
+        if self.lastname == other.lastname and self.firstname == other.firstname:
+            if self.id is None or other.id is None or self.id == other.id:
+                return True
+        return False
+
+    def id_or_max(self):
+        if self.id:
+            return int(self.id)
+        else:
+            return maxsize

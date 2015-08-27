@@ -14,15 +14,29 @@ def test_add_contact(app):
     contact.set_second_info(address="World 36", home="77", notes="She is my friend")
     contact.set_birthday(day="4", month="4", year="1987")
     contact.set_anniversary(day="31", month="7", year="2010")
-    # Create new contact
     app.contact.prepare_contact_test_suite()
+    old_contacts = app.contact.get_all_contacts()
+    # Create new contact
     app.contact.create(contact)
+    # Count contacts
+    new_contacts = app.contact.get_all_contacts()
+    assert len(old_contacts) + 1 == len(new_contacts)
+    # Check contacts list
+    old_contacts.append(contact)
+    app.group.check_if_groups_are_equal(old_contacts, new_contacts)
 
 
 def test_add_empty_contact(app):
-    # Create new contact
     app.contact.prepare_contact_test_suite()
+    old_contacts = app.contact.get_all_contacts()
+    # Create new contact
     app.contact.create(None)
+    # Count contacts
+    new_contacts = app.contact.get_all_contacts()
+    assert len(old_contacts) + 1 == len(new_contacts)
+    # Check contacts list
+    old_contacts.append(Contact("", "", "", ""))
+    app.group.check_if_groups_are_equal(old_contacts, new_contacts)
 
 
 def test_add_contact_with_spaces_in_fields(app):
@@ -35,16 +49,13 @@ def test_add_contact_with_spaces_in_fields(app):
     contact.set_second_info(address=" ", home=" ", notes=" ")
     contact.set_birthday(day="1", month="1", year=" ")
     contact.set_anniversary(day="1", month="1", year=" ")
-    # Create new contact
     app.contact.prepare_contact_test_suite()
+    old_contacts = app.contact.get_all_contacts()
+    # Create new contact
     app.contact.create(contact)
-
-
-def test_add_several_contacts(app):
-    # Create new contact object and fill its data
-    first_contact = Contact(firstname="Ann", middlename="AT", lastname="Arner", nickname="Tee")
-    second_contact = Contact(firstname="Don", middlename="JD", lastname="Doe", nickname="Jay")
-    # Create new contact
-    app.contact.prepare_contact_test_suite()
-    app.contact.create(first_contact)
-    app.contact.create(second_contact)
+    # Count contacts
+    new_contacts = app.contact.get_all_contacts()
+    assert len(old_contacts) + 1 == len(new_contacts)
+    # Check contacts list
+    old_contacts.append(Contact("", "", "", ""))
+    app.group.check_if_groups_are_equal(old_contacts, new_contacts)

@@ -2,6 +2,7 @@ __author__ = 'Teo'
 from page.new_contact_page import ContactEditPage
 from page.contacts_page import ContactsPage
 from page.contact_details_page import ContactDetailsPage
+from model.contact_data import Contact
 
 
 class ContactUtils:
@@ -72,3 +73,16 @@ class ContactUtils:
 
     def count(self):
         return self.contacts_page.count_contacts()
+
+    def get_all_contacts(self):
+        self.return_to_home_page()
+        contact_list = []
+        for element in self.contacts_page.get_all_contacts():
+            firstname = element.find_element_by_xpath("td[3]").text
+            lastname = element.find_element_by_xpath("td[2]").text
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            contact_list.append(Contact(firstname=firstname, lastname=lastname, id=id))
+        return contact_list
+
+    def check_if_groups_are_equal(self, first_group, second_group):
+        assert sorted(first_group, key=Contact.id_or_max) == sorted(second_group, key=Contact.id_or_max)

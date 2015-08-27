@@ -45,4 +45,8 @@ class ContactsPage:
 
     def count_contacts(self):
         wd = self.app.wd
-        return len(wd.find_elements_by_link_text("//div[@id='content']/form[@name='MainForm']/table/tbody/tr"))
+        return len(wd.find_elements_by_name("entry"))
+
+    def get_all_contacts(self):
+        wd = self.app.wd
+        return wd.find_elements_by_name("entry")
