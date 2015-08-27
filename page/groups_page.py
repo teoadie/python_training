@@ -37,3 +37,7 @@ class GroupsPage:
     def count_groups(self):
         wd = self.app.wd
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_all_groups(self):
+        wd = self.app.wd
+        return wd.find_elements_by_css_selector("span.group")

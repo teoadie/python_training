@@ -1,6 +1,7 @@
 __author__ = 'Teo'
 from page.new_group_page import GroupEditPage
 from page.groups_page import GroupsPage
+from model.group_data import Group
 
 
 class GroupUtils:
@@ -67,3 +68,15 @@ class GroupUtils:
 
     def count(self):
         return self.groups_page.count_groups()
+
+    def get_all_groups(self):
+        self.open_groups_page()
+        group_list = []
+        for element in self.groups_page.get_all_groups():
+            text = element.text
+            id = element.find_element_by_name("selected[]").get_attribute("value")
+            group_list.append(Group(name=text, id=id))
+        return group_list
+
+    def check_if_groups_are_equal(self, first_group, second_group):
+        assert sorted(first_group, key=Group.id_or_max) == sorted(second_group, key=Group.id_or_max)

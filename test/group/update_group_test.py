@@ -9,9 +9,17 @@ def test_update_first_group(app):
     second_group = Group(name='Second', header='SG', footer='Group2')
     app.group.create(first_group)
     app.group.create(second_group)
+    old_groups = app.group.get_all_groups()
     # Update group
     changed_group = Group(name='New', header='NG', footer='Better group')
+    changed_group.id = old_groups[0].id
     app.group.update_selected_groups([1], changed_group)
+    # Count groups
+    new_groups = app.group.get_all_groups()
+    assert len(old_groups) == len(new_groups)
+    # Check groups list
+    old_groups[0] = changed_group
+    app.group.check_if_groups_are_equal(old_groups, new_groups)
 
 
 def test_update_middle_group(app):
