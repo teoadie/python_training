@@ -114,4 +114,13 @@ def test_update_one_group(app):
     if app.group.count() == 0:
         first_group = Group(name='First', header='FG', footer='Group1')
         app.group.create(first_group)
+    old_groups = app.group.get_all_groups()
     app.group.update_selected_groups([1], None)
+    # Count groups
+    new_groups = app.group.get_all_groups()
+    assert len(old_groups) == len(new_groups)
+    # Check groups list
+    changed_group = Group(name='', header='', footer='')
+    changed_group.id = old_groups[0].id
+    old_groups[0] = changed_group
+    app.group.check_if_groups_are_equal(old_groups, new_groups)
