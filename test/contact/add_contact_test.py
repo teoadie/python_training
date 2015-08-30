@@ -23,7 +23,7 @@ def test_add_contact(app):
     # Check contacts list
     new_contacts = app.contact.get_all_contacts()
     old_contacts.append(contact)
-    app.group.check_if_groups_are_equal(old_contacts, new_contacts)
+    app.contact.check_if_contacts_are_equal(old_contacts, new_contacts)
 
 
 def test_add_empty_contact(app):
@@ -36,7 +36,7 @@ def test_add_empty_contact(app):
     # Check contacts list
     new_contacts = app.contact.get_all_contacts()
     old_contacts.append(Contact("", "", "", ""))
-    app.group.check_if_groups_are_equal(old_contacts, new_contacts)
+    app.contact.check_if_contacts_are_equal(old_contacts, new_contacts)
 
 
 def test_add_contact_with_spaces_in_fields(app):
@@ -58,4 +58,4 @@ def test_add_contact_with_spaces_in_fields(app):
     # Check contacts list
     new_contacts = app.contact.get_all_contacts()
     old_contacts.append(Contact("", "", "", ""))
-    app.group.check_if_groups_are_equal(old_contacts, new_contacts)
+    app.contact.check_if_contacts_are_equal(old_contacts, new_contacts)

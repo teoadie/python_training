@@ -1,6 +1,6 @@
 __author__ = 'Teo'
 from model.group_data import Group
-
+from random import randrange
 
 def test_delete_the_only_one_group(app):
     app.group.prepare_group_test_suite()
@@ -84,15 +84,6 @@ def test_delete_all_groups(app):
     assert 0 == app.group.count()
 
 
-def test_delete_one_group(app):
-    old_groups = app.group.get_all_groups()
-    if app.group.count() == 0:
-        app.group.create(None)
-    app.group.delete_selected_groups([1])
-    # Count groups
-    assert len(old_groups) == app.group.count()
-
-
 def test_delete_several_selected_groups(app):
     app.group.prepare_group_test_suite()
     # Create four groups
@@ -113,4 +104,18 @@ def test_delete_several_selected_groups(app):
     old_groups[0:1] = []
     old_groups[1:2] = []
     new_groups = app.group.get_all_groups()
+    assert old_groups == new_groups
+
+
+def test_delete_some_group(app):
+    if app.group.count() == 0:
+        app.group.create(None)
+    old_groups = app.group.get_all_groups()
+    # Create random index
+    index = randrange(len(old_groups))
+    app.group.delete_selected_groups([index + 1])
+    # Count groups
+    assert len(old_groups) - 1 == app.group.count()
+    new_groups = app.group.get_all_groups()
+    old_groups[index:index + 1] = []
     assert old_groups == new_groups

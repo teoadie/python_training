@@ -94,5 +94,5 @@ class ContactUtils:
                 self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id))
         return list(self.contact_cache)
 
-    def check_if_groups_are_equal(self, first_group, second_group):
-        assert sorted(first_group, key=Contact.id_or_max) == sorted(second_group, key=Contact.id_or_max)
+    def check_if_contacts_are_equal(self, first_contacts, second_contacts):
+        assert sorted(first_contacts, key=Contact.id_or_max) == sorted(second_contacts, key=Contact.id_or_max)

@@ -86,5 +86,5 @@ class GroupUtils:
                 self.group_cache.append(Group(name=text, id=id))
         return list(self.group_cache)
 
-    def check_if_groups_are_equal(self, first_group, second_group):
-        assert sorted(first_group, key=Group.id_or_max) == sorted(second_group, key=Group.id_or_max)
+    def check_if_groups_are_equal(self, first_groups, second_groups):
+        assert sorted(first_groups, key=Group.id_or_max) == sorted(second_groups, key=Group.id_or_max)

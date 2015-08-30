@@ -1,5 +1,6 @@
 __author__ = 'Teo'
 from model.contact_data import Contact
+from random import randrange
 
 
 def test_update_first_contact(app):
@@ -41,7 +42,7 @@ def test_update_first_contact(app):
     # Check contacts list
     old_contacts[0] = new_contact
     new_contacts = app.contact.get_all_contacts()
-    app.group.check_if_groups_are_equal(old_contacts, new_contacts)
+    app.contact.check_if_contacts_are_equal(old_contacts, new_contacts)
 
 
 def test_update_middle_contact(app):
@@ -85,7 +86,7 @@ def test_update_middle_contact(app):
     # Check contacts list
     old_contacts[1] = new_contact
     new_contacts = app.contact.get_all_contacts()
-    app.group.check_if_groups_are_equal(old_contacts, new_contacts)
+    app.contact.check_if_contacts_are_equal(old_contacts, new_contacts)
 
 
 def test_update_last_contact(app):
@@ -129,7 +130,7 @@ def test_update_last_contact(app):
     # Check contacts list
     old_contacts[2] = new_contact
     new_contacts = app.contact.get_all_contacts()
-    app.group.check_if_groups_are_equal(old_contacts, new_contacts)
+    app.contact.check_if_contacts_are_equal(old_contacts, new_contacts)
 
 
 def test_clear_contact_data(app):
@@ -158,23 +159,7 @@ def test_clear_contact_data(app):
     # Check contacts list
     old_contacts[0] = new_contact
     new_contacts = app.contact.get_all_contacts()
-    app.group.check_if_groups_are_equal(old_contacts, new_contacts)
-
-
-def test_update_one_contact(app):
-    if app.contact.count() == 0:
-        contact = Contact(firstname="Ann", middlename="AT", lastname="Arner", nickname="Tee")
-        app.contact.create(contact)
-    old_contacts = app.contact.get_all_contacts()
-    app.contact.update_contact_from_list(1, None)
-    # Count contacts
-    new_contact = Contact("", "", "", "")
-    new_contact.id = old_contacts[0].id
-    assert len(old_contacts) == app.contact.count()
-    # Check contacts list
-    old_contacts[0] = new_contact
-    new_contacts = app.contact.get_all_contacts()
-    app.group.check_if_groups_are_equal(old_contacts, new_contacts)
+    app.contact.check_if_contacts_are_equal(old_contacts, new_contacts)
 
 
 def test_update_contact_from_details_page(app):
@@ -203,4 +188,21 @@ def test_update_contact_from_details_page(app):
     # Check contacts list
     old_contacts[0] = new_contact
     new_contacts = app.contact.get_all_contacts()
-    app.group.check_if_groups_are_equal(old_contacts, new_contacts)
+    app.contact.check_if_contacts_are_equal(old_contacts, new_contacts)
+
+
+def test_update_some_contact(app):
+    if app.contact.count() == 0:
+        contact = Contact(firstname="Ann", middlename="AT", lastname="Arner", nickname="Tee")
+        app.contact.create(contact)
+    old_contacts = app.contact.get_all_contacts()
+    index = randrange(len(old_contacts))
+    app.contact.update_contact_from_list(index + 1, None)
+    # Count contacts
+    new_contact = Contact("", "", "", "")
+    new_contact.id = old_contacts[index].id
+    assert len(old_contacts) == app.contact.count()
+    # Check contacts list
+    old_contacts[index] = new_contact
+    new_contacts = app.contact.get_all_contacts()
+    app.contact.check_if_contacts_are_equal(old_contacts, new_contacts)
