@@ -14,23 +14,22 @@ class ContactsPage:
     def click_edit_contact_button(self, contact_position):
         wd = self.app.wd
         contact_position += 1
-        wd.find_element_by_xpath("//div[@id='content']/form[@name='MainForm']/table/tbody/tr[" + str(contact_position) +
-                                 "]/td[8]/a/img").click()
+        xpath = "//div[@id='content']/form[@name='MainForm']/table/tbody/tr[%s]/td[8]/a/img" % str(contact_position)
+        wd.find_element_by_xpath(xpath).click()
 
     def click_details_contact_button(self, contact_position):
         wd = self.app.wd
         contact_position += 1
-        wd.find_element_by_xpath("//div[@id='content']/form[@name='MainForm']/table/tbody/tr[" + str(contact_position) +
-                                 "]/td[7]/a/img").click()
+        xpath = "//div[@id='content']/form[@name='MainForm']/table/tbody/tr[%s]/td[7]/a/img" % str(contact_position)
+        wd.find_element_by_xpath(xpath).click()
 
     def select_contact(self, contact_position):
         wd = self.app.wd
         # Select numbered contact
         contact_position += 1
-        if not wd.find_element_by_xpath("//div[@id='content']/form[@name='MainForm']/table/tbody/tr["
-                                                        + str(contact_position) + "]/td[1]/input").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form[@name='MainForm']/table/tbody/tr["
-                                     + str(contact_position) + "]/td[1]/input").click()
+        xpath = "//div[@id='content']/form[@name='MainForm']/table/tbody/tr[%s]/td[1]/input" % str(contact_position)
+        if not wd.find_element_by_xpath(xpath).is_selected():
+            wd.find_element_by_xpath(xpath).click()
 
     def select_all_contacts(self):
         wd = self.app.wd

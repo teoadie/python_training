@@ -29,19 +29,23 @@ class ContactEditPage:
         wd.find_element_by_name("phone2").clear()
         wd.find_element_by_name("notes").clear()
         # Clear birthday day elements
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[1]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[1]//option[1]").click()
+        xpath = "//div[@id='content']/form/select[1]//option[1]"
+        if not wd.find_element_by_xpath(xpath).is_selected():
+            wd.find_element_by_xpath(xpath).click()
         # Clear birthday month elements
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[1]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[2]//option[1]").click()
+        xpath = "//div[@id='content']/form/select[2]//option[1]"
+        if not wd.find_element_by_xpath(xpath).is_selected():
+            wd.find_element_by_xpath(xpath).click()
         # Clear birthday year
         wd.find_element_by_name("byear").clear()
         # Clear anniversary day elements
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[1]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[3]//option[1]").click()
+        xpath = "//div[@id='content']/form/select[3]//option[1]"
+        if not wd.find_element_by_xpath(xpath).is_selected():
+            wd.find_element_by_xpath(xpath).click()
         # Clear anniversary month elements
-        if not wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[1]").is_selected():
-            wd.find_element_by_xpath("//div[@id='content']/form/select[4]//option[1]").click()
+        xpath = "//div[@id='content']/form/select[4]//option[1]"
+        if not wd.find_element_by_xpath(xpath).is_selected():
+            wd.find_element_by_xpath(xpath).click()
         # Clear anniversary month elements
         wd.find_element_by_name("ayear").clear()
 
@@ -89,12 +93,12 @@ class ContactEditPage:
         wd = self.app.wd
         # Fill anniversary day
         if contact.anniversary_day is not None:
-            anniversary_day_xpath = "//div[@id='content']/form/select[3]//option[" + contact.anniversary_day + "]"
+            anniversary_day_xpath = "//div[@id='content']/form/select[3]//option[%s]" % contact.anniversary_day
             if not wd.find_element_by_xpath(anniversary_day_xpath).is_selected():
                 wd.find_element_by_xpath(anniversary_day_xpath).click()
         # Fill anniversary month
         if contact.anniversary_month is not None:
-            anniversary_month_xpath = "//div[@id='content']/form/select[4]//option[" + contact.anniversary_month + "]"
+            anniversary_month_xpath = "//div[@id='content']/form/select[4]//option[%s]" % contact.anniversary_month
             if not wd.find_element_by_xpath(anniversary_month_xpath).is_selected():
                 wd.find_element_by_xpath(anniversary_month_xpath).click()
         # Fill anniversary year
@@ -104,12 +108,12 @@ class ContactEditPage:
         wd = self.app.wd
         # Fill birthday day
         if contact.birthday_day is not None:
-            birthday_day_xpath = "//div[@id='content']/form/select[1]//option[" + contact.birthday_day + "]"
+            birthday_day_xpath = "//div[@id='content']/form/select[1]//option[%s]" % contact.birthday_day
             if not wd.find_element_by_xpath(birthday_day_xpath).is_selected():
                 wd.find_element_by_xpath(birthday_day_xpath).click()
         # Fill birthday month
         if contact.birthday_month is not None:
-            birthday_month_xpath = "//div[@id='content']/form/select[2]//option[" + contact.birthday_month + "]"
+            birthday_month_xpath = "//div[@id='content']/form/select[2]//option[%s]" % contact.birthday_month
             if not wd.find_element_by_xpath(birthday_month_xpath).is_selected():
                 wd.find_element_by_xpath(birthday_month_xpath).click()
         # Fill birthday year

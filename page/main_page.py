@@ -22,7 +22,7 @@ class MainPage:
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(password)
         # Confirm login
-        wd.find_element_by_css_selector("input[type=\'submit\']").click()
+        wd.find_element_by_css_selector("input[type='submit']").click()
 
     def login_as_admin(self):
         self.login("admin", "secret")
@@ -51,7 +51,9 @@ class MainPage:
         check_result = len(wd.find_elements_by_link_text("Logout")) > 0
         return check_result
 
-    def is_logged_in_as_user(self, username):
+    def get_logged_user(self):
         wd = self.app.wd
-        current_login = wd.find_element_by_xpath("//div/div[1]/form/b").text
-        return current_login == "(" + username + ")"
+        return wd.find_element_by_xpath("//div/div[1]/form/b").text[1:-1]
+
+    def is_logged_in_as_user(self, username):
+        return self.get_logged_user() == username
