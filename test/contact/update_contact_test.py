@@ -37,10 +37,10 @@ def test_update_first_contact(app):
     new_contact.id = old_contacts[0].id
     app.contact.update_contact_from_list(1, new_contact)
     # Count contacts
-    new_contacts = app.contact.get_all_contacts()
-    assert len(old_contacts)  == len(new_contacts)
+    assert len(old_contacts) == app.contact.count()
     # Check contacts list
     old_contacts[0] = new_contact
+    new_contacts = app.contact.get_all_contacts()
     app.group.check_if_groups_are_equal(old_contacts, new_contacts)
 
 
@@ -81,10 +81,10 @@ def test_update_middle_contact(app):
     new_contact.id = old_contacts[1].id
     app.contact.update_contact_from_list(2, new_contact)
     # Count contacts
-    new_contacts = app.contact.get_all_contacts()
-    assert len(old_contacts)  == len(new_contacts)
+    assert len(old_contacts) == app.contact.count()
     # Check contacts list
     old_contacts[1] = new_contact
+    new_contacts = app.contact.get_all_contacts()
     app.group.check_if_groups_are_equal(old_contacts, new_contacts)
 
 
@@ -125,10 +125,10 @@ def test_update_last_contact(app):
     new_contact.id = old_contacts[2].id
     app.contact.update_contact_from_list(3, new_contact)
     # Count contacts
-    new_contacts = app.contact.get_all_contacts()
-    assert len(old_contacts)  == len(new_contacts)
+    assert len(old_contacts) == app.contact.count()
     # Check contacts list
     old_contacts[2] = new_contact
+    new_contacts = app.contact.get_all_contacts()
     app.group.check_if_groups_are_equal(old_contacts, new_contacts)
 
 
@@ -154,10 +154,10 @@ def test_clear_contact_data(app):
     new_contact.id = old_contacts[0].id
     app.contact.update_contact_from_list(1, None)
     # Count contacts
-    new_contacts = app.contact.get_all_contacts()
-    assert len(old_contacts)  == len(new_contacts)
+    assert len(old_contacts) == app.contact.count()
     # Check contacts list
     old_contacts[0] = new_contact
+    new_contacts = app.contact.get_all_contacts()
     app.group.check_if_groups_are_equal(old_contacts, new_contacts)
 
 
@@ -170,10 +170,10 @@ def test_update_one_contact(app):
     # Count contacts
     new_contact = Contact("", "", "", "")
     new_contact.id = old_contacts[0].id
-    new_contacts = app.contact.get_all_contacts()
-    assert len(old_contacts)  == len(new_contacts)
+    assert len(old_contacts) == app.contact.count()
     # Check contacts list
     old_contacts[0] = new_contact
+    new_contacts = app.contact.get_all_contacts()
     app.group.check_if_groups_are_equal(old_contacts, new_contacts)
 
 
@@ -199,8 +199,8 @@ def test_update_contact_from_details_page(app):
     new_contact = Contact("", "", "", "")
     new_contact.id = old_contacts[0].id
     # Count contacts
-    new_contacts = app.contact.get_all_contacts()
-    assert len(old_contacts)  == len(new_contacts)
+    assert len(old_contacts) == app.contact.count()
     # Check contacts list
     old_contacts[0] = new_contact
+    new_contacts = app.contact.get_all_contacts()
     app.group.check_if_groups_are_equal(old_contacts, new_contacts)

@@ -19,9 +19,9 @@ def test_add_contact(app):
     # Create new contact
     app.contact.create(contact)
     # Count contacts
-    new_contacts = app.contact.get_all_contacts()
-    assert len(old_contacts) + 1 == len(new_contacts)
+    assert len(old_contacts) + 1 == app.contact.count()
     # Check contacts list
+    new_contacts = app.contact.get_all_contacts()
     old_contacts.append(contact)
     app.group.check_if_groups_are_equal(old_contacts, new_contacts)
 
@@ -32,9 +32,9 @@ def test_add_empty_contact(app):
     # Create new contact
     app.contact.create(None)
     # Count contacts
-    new_contacts = app.contact.get_all_contacts()
-    assert len(old_contacts) + 1 == len(new_contacts)
+    assert len(old_contacts) + 1 == app.contact.count()
     # Check contacts list
+    new_contacts = app.contact.get_all_contacts()
     old_contacts.append(Contact("", "", "", ""))
     app.group.check_if_groups_are_equal(old_contacts, new_contacts)
 
@@ -54,8 +54,8 @@ def test_add_contact_with_spaces_in_fields(app):
     # Create new contact
     app.contact.create(contact)
     # Count contacts
-    new_contacts = app.contact.get_all_contacts()
-    assert len(old_contacts) + 1 == len(new_contacts)
+    assert len(old_contacts) + 1 == app.contact.count()
     # Check contacts list
+    new_contacts = app.contact.get_all_contacts()
     old_contacts.append(Contact("", "", "", ""))
     app.group.check_if_groups_are_equal(old_contacts, new_contacts)

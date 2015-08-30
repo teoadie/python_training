@@ -15,9 +15,9 @@ def test_update_first_group(app):
     changed_group.id = old_groups[0].id
     app.group.update_selected_groups([1], changed_group)
     # Count groups
-    new_groups = app.group.get_all_groups()
-    assert len(old_groups) == len(new_groups)
+    assert len(old_groups) == app.group.count()
     # Check groups list
+    new_groups = app.group.get_all_groups()
     old_groups[0] = changed_group
     app.group.check_if_groups_are_equal(old_groups, new_groups)
 
@@ -37,9 +37,9 @@ def test_update_middle_group(app):
     changed_group.id = old_groups[1].id
     app.group.update_selected_groups([2], changed_group)
     # Count groups
-    new_groups = app.group.get_all_groups()
-    assert len(old_groups) == len(new_groups)
+    assert len(old_groups) == app.group.count()
     # Check groups list
+    new_groups = app.group.get_all_groups()
     old_groups[1] = changed_group
     app.group.check_if_groups_are_equal(old_groups, new_groups)
 
@@ -59,9 +59,9 @@ def test_update_last_group(app):
     changed_group.id = old_groups[2].id
     app.group.update_selected_groups([3], changed_group)
     # Count groups
-    new_groups = app.group.get_all_groups()
-    assert len(old_groups) == len(new_groups)
+    assert len(old_groups) == app.group.count()
     # Check groups list
+    new_groups = app.group.get_all_groups()
     old_groups[2] = changed_group
     app.group.check_if_groups_are_equal(old_groups, new_groups)
 
@@ -79,9 +79,9 @@ def test_clear_group_data(app):
     changed_group.id = old_groups[0].id
     app.group.update_selected_groups([1], None)
     # Count groups
-    new_groups = app.group.get_all_groups()
-    assert len(old_groups) == len(new_groups)
+    assert len(old_groups) == app.group.count()
     # Check groups list
+    new_groups = app.group.get_all_groups()
     old_groups[0] = changed_group
     app.group.check_if_groups_are_equal(old_groups, new_groups)
 
@@ -103,9 +103,9 @@ def test_update_several_groups(app):
     changed_group.id = old_groups[1].id
     app.group.update_selected_groups([2, 4], changed_group)
     # Count groups
-    new_groups = app.group.get_all_groups()
-    assert len(old_groups) == len(new_groups)
+    assert len(old_groups) == app.group.count()
     # Check groups list
+    new_groups = app.group.get_all_groups()
     old_groups[1] = changed_group
     app.group.check_if_groups_are_equal(old_groups, new_groups)
 
@@ -117,9 +117,9 @@ def test_update_one_group(app):
     old_groups = app.group.get_all_groups()
     app.group.update_selected_groups([1], None)
     # Count groups
-    new_groups = app.group.get_all_groups()
-    assert len(old_groups) == len(new_groups)
+    assert len(old_groups) == app.group.count()
     # Check groups list
+    new_groups = app.group.get_all_groups()
     changed_group = Group(name='', header='', footer='')
     changed_group.id = old_groups[0].id
     old_groups[0] = changed_group

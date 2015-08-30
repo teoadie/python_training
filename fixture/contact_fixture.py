@@ -21,6 +21,7 @@ class ContactUtils:
         self.new_contact_page.confirm_contact_creation()
         # Check contact
         self.return_to_home_page()
+        self.contact_cache = None
 
     def return_to_home_page(self):
         # Don't click logo if we are already on main page
@@ -36,12 +37,14 @@ class ContactUtils:
         # Delete selected contacts
         self.contacts_page.click_delete_button()
         self.return_to_home_page()
+        self.contact_cache = None
 
     def delete_contact_from_update_page(self, contact_position):
         self.contacts_page.click_edit_contact_button(contact_position)
         self.new_contact_page.confirm_contact_delete()
         # Check contact
         self.return_to_home_page()
+        self.contact_cache = None
 
     def update_contact_from_list(self, contact_position, contact):
         self.contacts_page.click_edit_contact_button(contact_position)
@@ -50,6 +53,7 @@ class ContactUtils:
         self.new_contact_page.confirm_contact_update()
         # Check contact
         self.return_to_home_page()
+        self.contact_cache = None
 
     def update_contact_from_details_page(self, contact_position, contact):
         self.contacts_page.click_details_contact_button(contact_position)
@@ -59,6 +63,7 @@ class ContactUtils:
         self.new_contact_page.confirm_contact_update()
         # Check contact
         self.return_to_home_page()
+        self.contact_cache = None
 
     def delete_all_contacts(self):
         # Select all contacts
@@ -66,23 +71,28 @@ class ContactUtils:
         # Delete it
         self.contacts_page.click_delete_button()
         self.return_to_home_page()
+        self.contact_cache = None
 
     def prepare_contact_test_suite(self):
         # Delete all contacts
         self.delete_all_contacts()
 
     def count(self):
+        self.return_to_home_page()
         return self.contacts_page.count_contacts()
 
+    contact_cache = None
+
     def get_all_contacts(self):
-        self.return_to_home_page()
-        contact_list = []
-        for element in self.contacts_page.get_all_contacts():
-            firstname = element.find_element_by_xpath("td[3]").text
-            lastname = element.find_element_by_xpath("td[2]").text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            contact_list.append(Contact(firstname=firstname, lastname=lastname, id=id))
-        return contact_list
+        if self.contact_cache is None:
+            self.return_to_home_page()
+            self.contact_cache = []
+            for element in self.contacts_page.get_all_contacts():
+                firstname = element.find_element_by_xpath("td[3]").text
+                lastname = element.find_element_by_xpath("td[2]").text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id))
+        return list(self.contact_cache)
 
     def check_if_groups_are_equal(self, first_group, second_group):
         assert sorted(first_group, key=Contact.id_or_max) == sorted(second_group, key=Contact.id_or_max)

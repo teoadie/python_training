@@ -7,10 +7,10 @@ def test_delete_the_only_one_group(app):
     app.group.create(None)
     old_groups = app.group.get_all_groups()
     app.group.delete_selected_groups([1])
-    new_groups = app.group.get_all_groups()
     # Count groups
-    assert len(old_groups) - 1 == len(new_groups)
+    assert len(old_groups) - 1 == app.group.count()
     # Check existing groups
+    new_groups = app.group.get_all_groups()
     old_groups[0:1] = []
     assert old_groups == new_groups
 
@@ -25,10 +25,10 @@ def test_delete_first_group(app):
     old_groups = app.group.get_all_groups()
     # Delete first
     app.group.delete_selected_groups([1])
-    new_groups = app.group.get_all_groups()
     # Count groups
-    assert len(old_groups) - 1 == len(new_groups)
+    assert len(old_groups) - 1 == app.group.count()
     # Check existing groups
+    new_groups = app.group.get_all_groups()
     old_groups[0:1] = []
     assert old_groups == new_groups
 
@@ -45,10 +45,10 @@ def test_delete_middle_group(app):
     old_groups = app.group.get_all_groups()
     # Delete group
     app.group.delete_selected_groups([2])
-    new_groups = app.group.get_all_groups()
     # Count groups
-    assert len(old_groups) - 1 == len(new_groups)
+    assert len(old_groups) - 1 == app.group.count()
     # Check existing groups
+    new_groups = app.group.get_all_groups()
     old_groups[1:2] = []
     assert old_groups == new_groups
 
@@ -65,10 +65,10 @@ def test_delete_last_group(app):
     old_groups = app.group.get_all_groups()
     # Delete group
     app.group.delete_selected_groups([3])
-    new_groups = app.group.get_all_groups()
     # Count groups
-    assert len(old_groups) - 1 == len(new_groups)
+    assert len(old_groups) - 1 == app.group.count()
     # Check existing groups
+    new_groups = app.group.get_all_groups()
     old_groups[2:3] = []
     assert old_groups == new_groups
 
@@ -81,8 +81,7 @@ def test_delete_all_groups(app):
     app.group.create(None)
     # Select all groups and delete them
     app.group.delete_all_groups()
-    new_groups = app.group.get_all_groups()
-    assert 0 == len(new_groups)
+    assert 0 == app.group.count()
 
 
 def test_delete_one_group(app):
@@ -90,9 +89,8 @@ def test_delete_one_group(app):
     if app.group.count() == 0:
         app.group.create(None)
     app.group.delete_selected_groups([1])
-    new_groups = app.group.get_all_groups()
     # Count groups
-    assert len(old_groups) == len(new_groups)
+    assert len(old_groups) == app.group.count()
 
 
 def test_delete_several_selected_groups(app):
@@ -109,10 +107,10 @@ def test_delete_several_selected_groups(app):
     old_groups = app.group.get_all_groups()
     # Select two groups and delete them
     app.group.delete_selected_groups([1, 3])
-    new_groups = app.group.get_all_groups()
     # Count groups
-    assert len(old_groups) - 2 == len(new_groups)
+    assert len(old_groups) - 2 == app.group.count()
     # Check existing groups
     old_groups[0:1] = []
     old_groups[1:2] = []
+    new_groups = app.group.get_all_groups()
     assert old_groups == new_groups

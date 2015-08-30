@@ -18,6 +18,7 @@ class GroupUtils:
         self.group_edit_page.confirm_group_creation()
         # Return to home page
         self.return_to_groups_page()
+        self.group_cache = None
 
     def open_groups_page(self):
         # Open groups page
@@ -37,6 +38,7 @@ class GroupUtils:
         self.groups_page.click_delete_button()
         # Return to empty group page
         self.return_to_groups_page()
+        self.group_cache = None
 
     def delete_selected_groups(self, groups_positions):
         # Select every group from list
@@ -44,6 +46,7 @@ class GroupUtils:
             self.groups_page.select_group(position)
         # Delete selected groups
         self.groups_page.click_delete_button()
+        self.group_cache = None
 
     def update_selected_groups(self, groups_positions, group):
         # Select every group from list
@@ -61,22 +64,27 @@ class GroupUtils:
         self.group_edit_page.confirm_group_update()
         # Return to home page
         self.return_to_groups_page()
+        self.group_cache = None
 
     def prepare_group_test_suite(self):
         self.open_groups_page()
         self.delete_all_groups()
 
     def count(self):
+        self.open_groups_page()
         return self.groups_page.count_groups()
 
+    group_cache = None
+
     def get_all_groups(self):
-        self.open_groups_page()
-        group_list = []
-        for element in self.groups_page.get_all_groups():
-            text = element.text
-            id = element.find_element_by_name("selected[]").get_attribute("value")
-            group_list.append(Group(name=text, id=id))
-        return group_list
+        if self.group_cache is None:
+            self.open_groups_page()
+            self.group_cache = []
+            for element in self.groups_page.get_all_groups():
+                text = element.text
+                id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.group_cache.append(Group(name=text, id=id))
+        return list(self.group_cache)
 
     def check_if_groups_are_equal(self, first_group, second_group):
         assert sorted(first_group, key=Group.id_or_max) == sorted(second_group, key=Group.id_or_max)
