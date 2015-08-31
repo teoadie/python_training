@@ -8,24 +8,26 @@ def test_update_first_contact(app):
     app.contact.prepare_contact_test_suite()
     # Prepare old contact data
     contact = Contact(firstname="Ann", middlename="AT", lastname="Arner", nickname="Tee")
-    contact.set_company_data(title="MegaMailGroutOfAllWorld", company="MegaMailGroupOfAllWorldCorporation",
-                             address="somewhere beyond the sea")
+    contact.set_company_data(title="MegaMailGroutOfAllWorld", company="MegaMailGroupOfAllWorldCorporation")
+    contact.set_address(address="somewhere beyond the sea")
     contact.set_emails(first="ann.arner@megamailgroupofallworldcorporation.com",
                        second="ann@annhomemail.org", third="annnew@annhomemail.org")
     contact.set_homepage("www.somewherebeyondthesea.com")
-    contact.set_phones(home="112223366", mobile="+7(000)9999911111222", work="44444433", fax="2300011")
-    contact.set_second_info(address="World 36", home="77", notes="She is my friend")
+    contact.set_phones(home="112223366", mobile="+7(000)9999911111222", work="44444433", fax="2300011",
+                       second_phone="+123331212")
+    contact.set_second_info(address="World 36", notes="She is my friend")
     contact.set_birthday(day="4", month="4", year="1987")
     contact.set_anniversary(day="31", month="7", year="2010")
     # Prepare new contact data
     new_contact = Contact(firstname="QAnny", middlename="QAA", lastname="QArnert", nickname="QTaT")
-    new_contact.set_company_data(title="MegaMailGroutOfAllWorld2", company="MegaMailGroupOfAllWorldCorporation2",
-                                 address="somewhere beyond the sea2")
+    new_contact.set_company_data(title="MegaMailGroutOfAllWorld2", company="MegaMailGroupOfAllWorldCorporation2")
+    new_contact.set_address(address="somewhere beyond the sea2")
     new_contact.set_emails(first="ann.arner2@megamailgroupofallworldcorporation.com",
                            second="ann2@annhomemail.org", third="annnew2@annhomemail.org")
     new_contact.set_homepage("www.somewherebeyondthesea2.com")
-    new_contact.set_phones(home="112223377", mobile="+7(000)9999911111777", work="44444477", fax="2300077")
-    new_contact.set_second_info(address="World 77", home="177", notes="She is my best friend")
+    new_contact.set_phones(home="112223377", mobile="+7(000)9999911111777", work="44444477", fax="2300077",
+                           second_phone="+1232461212")
+    new_contact.set_second_info(address="World 77", notes="She is my best friend")
     new_contact.set_birthday(day="5", month="5", year="1986")
     new_contact.set_anniversary(day="12", month="3", year="2011")
     # Prepare other contacts
@@ -50,24 +52,26 @@ def test_update_middle_contact(app):
     app.contact.prepare_contact_test_suite()
     # Prepare old contact data
     contact = Contact(firstname="Dave", middlename="JD", lastname="Doe", nickname="Tee")
-    contact.set_company_data(title="MegaMailGroutOfAllWorld", company="MegaMailGroupOfAllWorldCorporation",
-                             address="somewhere beyond the sea")
+    contact.set_company_data(title="MegaMailGroutOfAllWorld", company="MegaMailGroupOfAllWorldCorporation")
+    contact.set_address(address="somewhere beyond the sea")
     contact.set_emails(first="ann.arner@megamailgroupofallworldcorporation.com",
                        second="ann@annhomemail.org", third="annnew@annhomemail.org")
     contact.set_homepage("www.somewherebeyondthesea.com")
-    contact.set_phones(home="112223366", mobile="+7(000)9999911111222", work="44444433", fax="2300011")
-    contact.set_second_info(address="World 36", home="77", notes="She is my friend")
+    contact.set_phones(home="112223366", mobile="+7(000)9999911111222", work="44444433", fax="2300011",
+                       second_phone="+123331212")
+    contact.set_second_info(address="World 36", notes="She is my friend")
     contact.set_birthday(day="4", month="4", year="1987")
     contact.set_anniversary(day="31", month="7", year="2010")
     # Prepare new contact data
     new_contact = Contact(firstname="QAnny", middlename="QAA", lastname="QArnert", nickname="QTaT")
-    new_contact.set_company_data(title="MegaMailGroutOfAllWorld2", company="MegaMailGroupOfAllWorldCorporation2",
-                                 address="somewhere beyond the sea2")
+    new_contact.set_company_data(title="MegaMailGroutOfAllWorld2", company="MegaMailGroupOfAllWorldCorporation2")
+    new_contact.set_address(address="somewhere beyond the sea2")
     new_contact.set_emails(first="ann.arner2@megamailgroupofallworldcorporation.com",
                            second="ann2@annhomemail.org", third="annnew2@annhomemail.org")
     new_contact.set_homepage("www.somewherebeyondthesea2.com")
-    new_contact.set_phones(home="112223377", mobile="+7(000)9999911111777", work="44444477", fax="2300077")
-    new_contact.set_second_info(address="World 77", home="177", notes="She is my best friend")
+    new_contact.set_phones(home="112223377", mobile="+7(000)9999911111777", work="44444477", fax="2300077",
+                           second_phone="+1233399")
+    new_contact.set_second_info(address="World 77", notes="She is my best friend")
     new_contact.set_birthday(day="5", month="5", year="1986")
     new_contact.set_anniversary(day="12", month="3", year="2011")
     # Prepare other contacts
@@ -94,24 +98,26 @@ def test_update_last_contact(app):
     app.contact.prepare_contact_test_suite()
     # Prepare old contact data
     contact = Contact(firstname="Leo", middlename="LLL", lastname="Lemon", nickname="Tee")
-    contact.set_company_data(title="MegaMailGroutOfAllWorld", company="MegaMailGroupOfAllWorldCorporation",
-                             address="somewhere beyond the sea")
+    contact.set_company_data(title="MegaMailGroutOfAllWorld", company="MegaMailGroupOfAllWorldCorporation")
+    contact.set_address(address="somewhere beyond the sea")
     contact.set_emails(first="ann.arner@megamailgroupofallworldcorporation.com",
                        second="ann@annhomemail.org", third="annnew@annhomemail.org")
     contact.set_homepage("www.somewherebeyondthesea.com")
-    contact.set_phones(home="112223366", mobile="+7(000)9999911111222", work="44444433", fax="2300011")
-    contact.set_second_info(address="World 36", home="77", notes="She is my friend")
+    contact.set_phones(home="112223366", mobile="+7(000)9999911111222", work="44444433", fax="2300011",
+                       second_phone="+123331212")
+    contact.set_second_info(address="World 36", notes="She is my friend")
     contact.set_birthday(day="4", month="4", year="1987")
     contact.set_anniversary(day="31", month="7", year="2010")
     # Prepare new contact data
     new_contact = Contact(firstname="Anny", middlename="AA", lastname="Arnert", nickname="TaT")
-    new_contact.set_company_data(title="MegaMailGroutOfAllWorld2", company="MegaMailGroupOfAllWorldCorporation2",
-                                 address="somewhere beyond the sea2")
+    new_contact.set_company_data(title="MegaMailGroutOfAllWorld2", company="MegaMailGroupOfAllWorldCorporation2")
+    new_contact.set_address(address="somewhere beyond the sea2")
     new_contact.set_emails(first="ann.arner2@megamailgroupofallworldcorporation.com",
                            second="ann2@annhomemail.org", third="annnew2@annhomemail.org")
     new_contact.set_homepage("www.somewherebeyondthesea2.com")
-    new_contact.set_phones(home="112223377", mobile="+7(000)9999911111777", work="44444477", fax="2300077")
-    new_contact.set_second_info(address="World 77", home="177", notes="She is my best friend")
+    new_contact.set_phones(home="112223377", mobile="+7(000)9999911111777", work="44444477", fax="2300077",
+                           second_phone="+111331212")
+    new_contact.set_second_info(address="World 77", notes="She is my best friend")
     new_contact.set_birthday(day="5", month="5", year="1986")
     new_contact.set_anniversary(day="12", month="3", year="2011")
     # Prepare other contacts
@@ -138,13 +144,14 @@ def test_clear_contact_data(app):
     app.contact.prepare_contact_test_suite()
     # Prepare old contact data
     contact = Contact(firstname="Ann", middlename="AT", lastname="Arner", nickname="Tee")
-    contact.set_company_data(title="MegaMailGroutOfAllWorld", company="MegaMailGroupOfAllWorldCorporation",
-                             address="somewhere beyond the sea")
+    contact.set_company_data(title="MegaMailGroutOfAllWorld", company="MegaMailGroupOfAllWorldCorporation")
+    contact.set_address(address="somewhere beyond the sea")
     contact.set_emails(first="ann.arner@megamailgroupofallworldcorporation.com",
                        second="ann@annhomemail.org", third="annnew@annhomemail.org")
     contact.set_homepage("www.somewherebeyondthesea.com")
-    contact.set_phones(home="112223366", mobile="+7(000)9999911111222", work="44444433", fax="2300011")
-    contact.set_second_info(address="World 36", home="77", notes="She is my friend")
+    contact.set_phones(home="112223366", mobile="+7(000)9999911111222", work="44444433", fax="2300011",
+                       second_phone="+123331212")
+    contact.set_second_info(address="World 36", notes="She is my friend")
     contact.set_birthday(day="4", month="4", year="1987")
     contact.set_anniversary(day="31", month="7", year="2010")
     # Create contacts
@@ -167,13 +174,14 @@ def test_update_contact_from_details_page(app):
     app.contact.prepare_contact_test_suite()
     # Prepare old contact data
     contact = Contact(firstname="Ann", middlename="AT", lastname="Arner", nickname="Tee")
-    contact.set_company_data(title="MegaMailGroutOfAllWorld", company="MegaMailGroupOfAllWorldCorporation",
-                             address="somewhere beyond the sea")
+    contact.set_company_data(title="MegaMailGroutOfAllWorld", company="MegaMailGroupOfAllWorldCorporation")
+    contact.set_address(address="somewhere beyond the sea")
     contact.set_emails(first="ann.arner@megamailgroupofallworldcorporation.com",
                        second="ann@annhomemail.org", third="annnew@annhomemail.org")
     contact.set_homepage("www.somewherebeyondthesea.com")
-    contact.set_phones(home="112223366", mobile="+7(000)9999911111222", work="44444433", fax="2300011")
-    contact.set_second_info(address="World 36", home="77", notes="She is my friend")
+    contact.set_phones(home="112223366", mobile="+7(000)9999911111222", work="44444433", fax="2300011",
+                       second_phone="+123331212")
+    contact.set_second_info(address="World 36", notes="She is my friend")
     contact.set_birthday(day="4", month="4", year="1987")
     contact.set_anniversary(day="31", month="7", year="2010")
     # Create contacts

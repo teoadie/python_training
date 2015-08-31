@@ -1,4 +1,5 @@
 __author__ = 'Teo'
+from model.contact_data import Contact
 
 
 class ContactEditPage:
@@ -63,7 +64,7 @@ class ContactEditPage:
         # Fill company
         self.fill_string_field("company", contact.company)
         # Fill company address
-        self.fill_string_field("address", contact.work_address)
+        self.fill_string_field("address", contact.address)
         # Fill home phone number
         self.fill_string_field("home", contact.home_phone)
         # Fill mobile phone number
@@ -85,7 +86,7 @@ class ContactEditPage:
         # Fill home address
         self.fill_string_field("address2", contact.second_address)
         # Fill home number
-        self.fill_string_field("phone2", contact.second_home)
+        self.fill_string_field("phone2", contact.second_phone)
         # Fill notes
         self.fill_string_field("notes", contact.second_notes)
 
@@ -147,3 +148,37 @@ class ContactEditPage:
         if new_value is not None:
             wd.find_element_by_name(field_name).click()
             wd.find_element_by_name(field_name).send_keys(new_value)
+
+    def get_string_field_value(self, field_name):
+        wd = self.app.wd
+        return wd.find_element_by_name(field_name).get_attribute("value")
+
+    def get_data_from_fields(self):
+        contact_id = self.get_string_field_value("id")
+        firstname = self.get_string_field_value("firstname")
+        middlename = self.get_string_field_value("middlename")
+        lastname = self.get_string_field_value("lastname")
+        nickname = self.get_string_field_value("nickname")
+        company = self.get_string_field_value("company")
+        title = self.get_string_field_value("title")
+        address = self.get_string_field_value("address")
+        home = self.get_string_field_value("home")
+        mobile = self.get_string_field_value("mobile")
+        work = self.get_string_field_value("work")
+        fax = self.get_string_field_value("fax")
+        email = self.get_string_field_value("email")
+        email2 = self.get_string_field_value("email2")
+        email3 = self.get_string_field_value("email3")
+        homepage = self.get_string_field_value("homepage")
+        address2 = self.get_string_field_value("address2")
+        phone2 = self.get_string_field_value("phone2")
+        notes = self.get_string_field_value("notes")
+        contact_data = Contact(firstname=firstname, middlename=middlename, lastname=lastname,
+                               nickname=nickname, id=contact_id)
+        contact_data.set_company_data(title=title, company=company)
+        contact_data.set_address(address=address)
+        contact_data.set_second_info(address=address2, notes=notes)
+        contact_data.set_emails(first=email, second=email2, third=email3)
+        contact_data.set_homepage(homepage)
+        contact_data.set_phones(home=home, mobile=mobile, work=work, fax=fax, second_phone=phone2)
+        return contact_data

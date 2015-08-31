@@ -88,11 +88,46 @@ class ContactUtils:
             self.return_to_home_page()
             self.contact_cache = []
             for element in self.contacts_page.get_all_contacts():
-                firstname = element.find_element_by_xpath("td[3]").text
+                # Get last name
                 lastname = element.find_element_by_xpath("td[2]").text
-                id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id))
+                # Get first name
+                firstname = element.find_element_by_xpath("td[3]").text
+                # Get address
+                address = element.find_element_by_xpath("td[4]").text
+                # Get all emails
+                all_emails = element.find_element_by_xpath("td[5]")
+                email_list = []
+                for one_href in all_emails.find_elements_by_xpath("a"):
+                    email_list.append(one_href.text)
+                # Get all phones
+                all_phones = element.find_element_by_xpath("td[6]").text
+                # Get id
+                contact_id = element.find_element_by_name("selected[]").get_attribute("value")
+                temp_contact = Contact(firstname=firstname, lastname=lastname, id=contact_id)
+                temp_contact.set_address(address)
+                temp_contact.set_all_phones_from_home_page(all_phones_from_home_page=all_phones)
+                temp_contact.set_all_emails_from_home_page(all_emails_from_home_page=email_list)
+                self.contact_cache.append(temp_contact)
         return list(self.contact_cache)
 
     def check_if_contacts_are_equal(self, first_contacts, second_contacts):
         assert sorted(first_contacts, key=Contact.id_or_max) == sorted(second_contacts, key=Contact.id_or_max)
+
+    def get_data_from_modification_page(self, contact_position):
+        self.return_to_home_page()
+        self.contacts_page.click_details_contact_button(contact_position)
+        self.contact_detail.click_modify_button()
+        # Fill contact data
+        contact = self.new_contact_page.get_data_from_fields()
+        # Check contact
+        self.return_to_home_page()
+        return contact
+
+    def get_data_from_view_page(self, contact_position):
+        self.return_to_home_page()
+        self.contacts_page.click_details_contact_button(contact_position)
+        # Fill contact data
+        contact = self.contact_detail.get_contact_data()
+        # Check contact
+        self.return_to_home_page()
+        return contact
