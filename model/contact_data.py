@@ -4,32 +4,36 @@ import re
 
 
 class Contact:
-    def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None, id=None):
+    def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None, id=None, title=None,
+                 company=None, address=None, home_phone=None, mobile_phone=None, work_phone=None, fax_phone=None,
+                 first_email=None, second_email=None, third_email=None, homepage=None, second_address=None,
+                 second_phone=None, second_notes=None, birthday_day=None, birthday_month=None, birthday_year=None,
+                 anniversary_day=None, anniversary_month=None, anniversary_year=None):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
         self.nickname = nickname
         self.id = id
-        self.title = None
-        self.company = None
-        self.address = None
-        self.home_phone = None
-        self.mobile_phone = None
-        self.work_phone = None
-        self.fax_phone = None
-        self.first_email = None
-        self.second_email = None
-        self.third_email = None
-        self.homepage = None
-        self.second_address = None
-        self.second_phone = None
-        self.second_notes = None
-        self.birthday_day = None
-        self.birthday_month = None
-        self.birthday_year = None
-        self.anniversary_day = None
-        self.anniversary_month = None
-        self.anniversary_year = None
+        self.title = title
+        self.company = company
+        self.address = address
+        self.home_phone = home_phone
+        self.mobile_phone = mobile_phone
+        self.work_phone = work_phone
+        self.fax_phone = fax_phone
+        self.first_email = first_email
+        self.second_email = second_email
+        self.third_email = third_email
+        self.homepage = homepage
+        self.second_address = second_address
+        self.second_phone = second_phone
+        self.second_notes = second_notes
+        self.birthday_day = birthday_day
+        self.birthday_month = birthday_month
+        self.birthday_year = birthday_year
+        self.anniversary_day = anniversary_day
+        self.anniversary_month = anniversary_month
+        self.anniversary_year = anniversary_year
         self.all_phones_from_home_page = None
         self.all_emails_from_home_page = None
 
@@ -76,12 +80,20 @@ class Contact:
         self.all_emails_from_home_page = all_emails_from_home_page
 
     def __repr__(self):
-        return "%s:%s %s" % (self.id, self.lastname, self.firstname)
+        return "%s:%s:%s" % (self.id, self.lastname, self.firstname)
 
     def __eq__(self, other):
-        if self.lastname == other.lastname and self.firstname == other.firstname:
+        if self.check_two_fields(self.lastname, other.lastname) and \
+                self.check_two_fields(self.firstname, other.firstname):
             if self.id is None or other.id is None or self.id == other.id:
                 return True
+        return False
+
+    def check_two_fields(self, first_field, second_field):
+        if (first_field == second_field) or\
+                (first_field == "" and second_field == " ") or\
+                (first_field == " " and second_field == "") :
+            return True
         return False
 
     def id_or_max(self):

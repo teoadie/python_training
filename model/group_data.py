@@ -11,10 +11,10 @@ class Group:
         self.id = id
 
     def __repr__(self):
-        return "%s:%s" % (self.id, self.name)
+        return "%s:%s:%s:%s" % (self.id, self.name, self.header, self.footer)
 
     def __eq__(self, other):
-        if self.name == other.name:
+        if self.check_two_fields(self.name, other.name):
             if self.id is None or other.id is None or self.id == other.id:
                 return True
         return False
@@ -24,3 +24,10 @@ class Group:
             return int(self.id)
         else:
             return maxsize
+
+    def check_two_fields(self, first_field, second_field):
+        if (first_field == second_field) or\
+                (first_field == "" and second_field == " ") or\
+                (first_field == " " and second_field == ""):
+            return True
+        return False
