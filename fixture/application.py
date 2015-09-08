@@ -20,6 +20,8 @@ class Application:
         self.contact = ContactUtils(self)
         self.session = MainPage(self)
         self.base_url = base_url
+        self.default_login = None
+        self.default_password = None
 
     def is_valid(self):
         try:
@@ -30,3 +32,7 @@ class Application:
 
     def destroy(self):
         self.wd.quit()
+
+    def set_default_user(self, default_login, default_password):
+        self.default_login = default_login
+        self.default_password = default_password

@@ -24,8 +24,8 @@ class MainPage:
         # Confirm login
         wd.find_element_by_css_selector("input[type='submit']").click()
 
-    def login_as_admin(self):
-        self.login("admin", "secret")
+    def login_as_default_user(self):
+        self.login(self.app.default_login, self.app.default_password)
 
     def ensure_login(self, username, password):
         if self.is_logged_in():
@@ -35,8 +35,8 @@ class MainPage:
                 self.logout()
         self.login(username, password)
 
-    def ensure_login_as_admin(self):
-        self.ensure_login("admin", "secret")
+    def ensure_login_by_default_user(self):
+        self.ensure_login(self.app.default_login, self.app.default_password)
 
     def logout(self):
         wd = self.app.wd
