@@ -1,0 +1,37 @@
+[
+  {
+    "id": null,
+    "name": "Best friends",
+    "py/object": "model.group_data.Group",
+    "header": "My best friends",
+    "footer": "Hell yeah"
+  },
+  {
+    "id": null,
+    "name": " ",
+    "py/object": "model.group_data.Group",
+    "header": " ",
+    "footer": " "
+  },
+  {
+    "id": null,
+    "name": "",
+    "py/object": "model.group_data.Group",
+    "header": "",
+    "footer": ""
+  },
+  {
+    "id": null,
+    "name": "name+[{k#*# ",
+    "py/object": "model.group_data.Group",
+    "header": "header+FyV\\w",
+    "footer": "footerxH%usZU"
+  },
+  {
+    "id": null,
+    "name": "name,&%=*9|J",
+    "py/object": "model.group_data.Group",
+    "header": "headeru5",
+    "footer": "footer 1(j)'q\\K"
+  }
+]
