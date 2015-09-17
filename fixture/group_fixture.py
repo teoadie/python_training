@@ -28,8 +28,7 @@ class GroupUtils:
     def return_to_groups_page(self):
         # Return to group page
         wd = self.app.wd
-        if not ((len(wd.find_elements_by_name("new")) != 0) and
-                    (wd.current_url.endswith("/group.php"))):
+        if not ((len(wd.find_elements_by_name("new")) != 0) and (wd.current_url.endswith("/group.php"))):
             wd.find_element_by_link_text("group page").click()
 
     def delete_all_groups(self):
@@ -48,10 +47,27 @@ class GroupUtils:
         self.groups_page.click_delete_button()
         self.group_cache = None
 
+    def delete_groups_by_ids(self, id_list):
+        # Select every group from list
+        for group_id in id_list:
+            self.groups_page.select_group_by_id(group_id)
+        # Delete selected groups
+        self.groups_page.click_delete_button()
+        self.group_cache = None
+
+    def update_groups_by_ids(self, id_list, group):
+        # Select every group from list
+        for group_id in id_list:
+            self.groups_page.select_group_by_id(group_id)
+        self.update_group_after_selection(group)
+
     def update_selected_groups(self, groups_positions, group):
         # Select every group from list
         for position in groups_positions:
             self.groups_page.select_group(position)
+        self.update_group_after_selection(group)
+
+    def update_group_after_selection(self, group):
         # Click edit group button
         self.groups_page.click_edit_group_button()
         # Fill group data
@@ -82,8 +98,8 @@ class GroupUtils:
             self.group_cache = []
             for element in self.groups_page.get_all_groups():
                 text = element.text
-                id = element.find_element_by_name("selected[]").get_attribute("value")
-                self.group_cache.append(Group(name=text, id=id))
+                group_id = element.find_element_by_name("selected[]").get_attribute("value")
+                self.group_cache.append(Group(name=text, id=group_id))
         return list(self.group_cache)
 
     def check_if_groups_are_equal(self, first_groups, second_groups):

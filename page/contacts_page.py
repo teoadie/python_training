@@ -23,6 +23,21 @@ class ContactsPage:
         xpath = "//div[@id='content']/form[@name='MainForm']/table/tbody/tr[%s]/td[7]/a/img" % str(contact_position)
         wd.find_element_by_xpath(xpath).click()
 
+    def find_contact_position_by_id(self, contact_id):
+        wd = self.app.wd
+        count_contacts = self.count_contacts()
+        if count_contacts != 0:
+            for position in range (2, count_contacts + 2):
+                xpath = "//div[@id='content']/form[@name='MainForm']/table/tbody/tr[%s]/td[1]/input[@id='%s']" \
+                          % (str(position), str(contact_id))
+                try:
+                    element = wd.find_element_by_xpath(xpath)
+                    if element is not None:
+                        return position - 1
+                except:
+                    pass
+        raise ValueError('Contact with id %s not found on main page' % str(contact_id))
+
     def select_contact(self, contact_position):
         wd = self.app.wd
         # Select numbered contact
@@ -30,6 +45,15 @@ class ContactsPage:
         xpath = "//div[@id='content']/form[@name='MainForm']/table/tbody/tr[%s]/td[1]/input" % str(contact_position)
         if not wd.find_element_by_xpath(xpath).is_selected():
             wd.find_element_by_xpath(xpath).click()
+
+    def select_contact_by_id(self, contact_id):
+        wd = self.app.wd
+        # Select numbered contact
+        css_selector = "input[value='%s']" % str(contact_id)
+        wd.find_element_by_css_selector(css_selector).click()
+        #xpath = "//div[@id='content']/form[@name='MainForm']/table/tbody/tr/td[1]/input[id='%s']" % str(contact_id)
+        #if not wd.find_element_by_xpath(xpath).is_selected():
+        #    wd.find_element_by_xpath(xpath).click()
 
     def select_all_contacts(self):
         wd = self.app.wd

@@ -39,12 +39,25 @@ class ContactUtils:
         self.return_to_home_page()
         self.contact_cache = None
 
+    def delete_contacts_by_ids(self, contacts_ids):
+        # Select every contact from list
+        for contact_id in contacts_ids:
+            self.contacts_page.select_contact_by_id(contact_id)
+        # Delete selected contacts
+        self.contacts_page.click_delete_button()
+        self.return_to_home_page()
+        self.contact_cache = None
+
     def delete_contact_from_update_page(self, contact_position):
         self.contacts_page.click_edit_contact_button(contact_position)
         self.new_contact_page.confirm_contact_delete()
         # Check contact
         self.return_to_home_page()
         self.contact_cache = None
+
+    def update_contact_from_list_by_id(self, contact_id, contact):
+        position = self.contacts_page.find_contact_position_by_id(contact_id)
+        self.update_contact_from_list(position, contact)
 
     def update_contact_from_list(self, contact_position, contact):
         self.contacts_page.click_edit_contact_button(contact_position)

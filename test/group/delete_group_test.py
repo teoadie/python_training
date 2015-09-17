@@ -1,39 +1,38 @@
 __author__ = 'Teo'
 from model.group_data import Group
-from random import randrange
+import random
 
-def test_delete_the_only_one_group(app):
+
+def test_delete_the_only_one_group(app, db, check_ui):
     app.group.prepare_group_test_suite()
     app.group.create(None)
-    old_groups = app.group.get_all_groups()
     app.group.delete_selected_groups([1])
-    # Count groups
-    assert len(old_groups) - 1 == app.group.count()
     # Check existing groups
-    new_groups = app.group.get_all_groups()
-    old_groups[0:1] = []
-    assert old_groups == new_groups
+    assert 0 == len(db.get_group_list())
+    if check_ui:
+        assert 0 == len(app.group.count_groups())
 
 
-def test_delete_first_group(app):
+def test_delete_first_group(app, db, check_ui):
     app.group.prepare_group_test_suite()
     # Create two groups
     first_group = Group(name='First', header='FG', footer='Group1')
     second_group = Group(name='Second', header='SG', footer='Group2')
     app.group.create(first_group)
     app.group.create(second_group)
-    old_groups = app.group.get_all_groups()
+    old_groups = db.get_group_list()
     # Delete first
     app.group.delete_selected_groups([1])
-    # Count groups
-    assert len(old_groups) - 1 == app.group.count()
     # Check existing groups
-    new_groups = app.group.get_all_groups()
+    new_groups = db.get_group_list()
     old_groups[0:1] = []
-    assert old_groups == new_groups
+    app.group.check_if_groups_are_equal(old_groups, new_groups)
+    if check_ui:
+        new_groups = app.group.get_all_groups()
+        app.group.check_if_groups_are_equal(old_groups, new_groups)
 
 
-def test_delete_middle_group(app):
+def test_delete_middle_group(app, db, check_ui):
     app.group.prepare_group_test_suite()
     # Create three groups
     first_group = Group(name='First', header='FG', footer='Group1')
@@ -42,18 +41,19 @@ def test_delete_middle_group(app):
     app.group.create(first_group)
     app.group.create(second_group)
     app.group.create(third_group)
-    old_groups = app.group.get_all_groups()
+    old_groups = db.get_group_list()
     # Delete group
     app.group.delete_selected_groups([2])
-    # Count groups
-    assert len(old_groups) - 1 == app.group.count()
     # Check existing groups
-    new_groups = app.group.get_all_groups()
+    new_groups = db.get_group_list()
     old_groups[1:2] = []
-    assert old_groups == new_groups
+    app.group.check_if_groups_are_equal(old_groups, new_groups)
+    if check_ui:
+        new_groups = app.group.get_all_groups()
+        app.group.check_if_groups_are_equal(old_groups, new_groups)
 
 
-def test_delete_last_group(app):
+def test_delete_last_group(app, db, check_ui):
     app.group.prepare_group_test_suite()
     # Create three groups
     first_group = Group(name='First', header='FG', footer='Group1')
@@ -62,18 +62,19 @@ def test_delete_last_group(app):
     app.group.create(first_group)
     app.group.create(second_group)
     app.group.create(third_group)
-    old_groups = app.group.get_all_groups()
+    old_groups = db.get_group_list()
     # Delete group
     app.group.delete_selected_groups([3])
-    # Count groups
-    assert len(old_groups) - 1 == app.group.count()
     # Check existing groups
-    new_groups = app.group.get_all_groups()
+    new_groups = db.get_group_list()
     old_groups[2:3] = []
-    assert old_groups == new_groups
+    app.group.check_if_groups_are_equal(old_groups, new_groups)
+    if check_ui:
+        new_groups = app.group.get_all_groups()
+        app.group.check_if_groups_are_equal(old_groups, new_groups)
 
 
-def test_delete_all_groups(app):
+def test_delete_all_groups(app, db, check_ui):
     app.group.prepare_group_test_suite()
     # Create three groups
     app.group.create(None)
@@ -81,10 +82,12 @@ def test_delete_all_groups(app):
     app.group.create(None)
     # Select all groups and delete them
     app.group.delete_all_groups()
-    assert 0 == app.group.count()
+    assert 0 == len(db.get_group_list())
+    if check_ui:
+        assert 0 == app.group.count()
 
 
-def test_delete_several_selected_groups(app):
+def test_delete_several_selected_groups(app, db, check_ui):
     app.group.prepare_group_test_suite()
     # Create four groups
     first_group = Group(name='First', header='FG', footer='Group1')
@@ -95,27 +98,32 @@ def test_delete_several_selected_groups(app):
     app.group.create(second_group)
     app.group.create(third_group)
     app.group.create(fourth_group)
-    old_groups = app.group.get_all_groups()
+    # Select two groups to delete
+    old_groups = db.get_group_list()
+    first_deleted_group = old_groups[1]
+    second_deleted_group = old_groups[3]
     # Select two groups and delete them
-    app.group.delete_selected_groups([1, 3])
-    # Count groups
-    assert len(old_groups) - 2 == app.group.count()
+    app.group.delete_groups_by_ids([first_deleted_group.id, second_deleted_group.id])
     # Check existing groups
-    old_groups[0:1] = []
-    old_groups[1:2] = []
-    new_groups = app.group.get_all_groups()
-    assert old_groups == new_groups
+    old_groups.remove(first_deleted_group)
+    old_groups.remove(second_deleted_group)
+    new_groups = db.get_group_list()
+    app.group.check_if_groups_are_equal(old_groups, new_groups)
+    if check_ui:
+        new_groups = app.group.get_all_groups()
+        app.group.check_if_groups_are_equal(old_groups, new_groups)
 
 
-def test_delete_some_group(app):
+def test_delete_some_group(app, db, check_ui):
     if app.group.count() == 0:
         app.group.create(None)
-    old_groups = app.group.get_all_groups()
+    old_groups = db.get_group_list()
     # Create random index
-    index = randrange(len(old_groups))
-    app.group.delete_selected_groups([index + 1])
-    # Count groups
-    assert len(old_groups) - 1 == app.group.count()
-    new_groups = app.group.get_all_groups()
-    old_groups[index:index + 1] = []
-    assert old_groups == new_groups
+    group = random.choice(old_groups)
+    app.group.delete_groups_by_ids([group.id])
+    new_groups = db.get_group_list()
+    old_groups.remove(group)
+    app.group.check_if_groups_are_equal(old_groups, new_groups)
+    if check_ui:
+        new_groups = app.group.get_all_groups()
+        app.group.check_if_groups_are_equal(old_groups, new_groups)

@@ -23,6 +23,7 @@ def test_check_random_contact_on_main_page(app):
     # Check phone numbers
     assert contact_from_main_page.all_phones_from_home_page == contact_from_edit_page.merge_phones_like_on_home_page()
 
+
 def check_if_home_page_value_equal_to_contact_value(home_page_data, contact_data):
     if home_page_data == contact_data:
         return True

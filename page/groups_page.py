@@ -22,6 +22,12 @@ class GroupsPage:
         xpath = "//div[@id='content']/form/span[%s]/input" % str(group_position)
         wd.find_element_by_xpath(xpath).click()
 
+    def select_group_by_id(self, group_id):
+        wd = self.app.wd
+        # Select numbered group
+        css_selector = "input[value='%s']" % str(group_id)
+        wd.find_element_by_css_selector(css_selector).click()
+
     def select_all_groups(self):
         wd = self.app.wd
         # Select all groups
