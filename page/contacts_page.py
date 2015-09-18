@@ -2,7 +2,6 @@ __author__ = 'Teo'
 
 
 class ContactsPage:
-
     def __init__(self, app):
         self.app = app
 
@@ -27,9 +26,9 @@ class ContactsPage:
         wd = self.app.wd
         count_contacts = self.count_contacts()
         if count_contacts != 0:
-            for position in range (2, count_contacts + 2):
+            for position in range(2, count_contacts + 2):
                 xpath = "//div[@id='content']/form[@name='MainForm']/table/tbody/tr[%s]/td[1]/input[@id='%s']" \
-                          % (str(position), str(contact_id))
+                        % (str(position), str(contact_id))
                 try:
                     element = wd.find_element_by_xpath(xpath)
                     if element is not None:
@@ -51,9 +50,6 @@ class ContactsPage:
         # Select numbered contact
         css_selector = "input[value='%s']" % str(contact_id)
         wd.find_element_by_css_selector(css_selector).click()
-        #xpath = "//div[@id='content']/form[@name='MainForm']/table/tbody/tr/td[1]/input[id='%s']" % str(contact_id)
-        #if not wd.find_element_by_xpath(xpath).is_selected():
-        #    wd.find_element_by_xpath(xpath).click()
 
     def select_all_contacts(self):
         wd = self.app.wd
@@ -73,3 +69,29 @@ class ContactsPage:
     def get_all_contacts(self):
         wd = self.app.wd
         return wd.find_elements_by_name("entry")
+
+    def select_group_to_add_contact(self, group_name):
+        wd = self.app.wd
+        xpath = "//select[@name='to_group']/option[text()='%s']" % str(group_name)
+        if not wd.find_element_by_xpath(xpath).is_selected():
+            wd.find_element_by_xpath(xpath).click()
+
+    def select_group_to_view(self, group_name):
+        wd = self.app.wd
+        xpath = "//div[@id='content']/form[@id='right']/select[@name='group']/option[text()='%s']" \
+                % str(group_name.strip())
+        if not wd.find_element_by_xpath(xpath).is_selected():
+            wd.find_element_by_xpath(xpath).click()
+
+    def click_add_contact_to_group_button(self):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//input[@name='add']").click()
+
+    def click_remove_contact_from_group_button(self):
+        wd = self.app.wd
+        wd.find_element_by_xpath("//div[@id='content']/form[@name='MainForm']/div[3]/input").click()
+
+    def get_current_group_view(self):
+        wd = self.app.wd
+        xpath = "//div[@id='content']/form[@id='right']/select[@name='group']"
+        return wd.find_element_by_xpath(xpath).get_attribute("value")

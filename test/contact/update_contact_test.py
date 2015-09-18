@@ -205,7 +205,8 @@ def test_update_contact_from_details_page(app, db, check_ui):
 
 
 def test_update_some_contact(app, db, check_ui):
-    if app.contact.count() == 0:
+    app.contact.set_default_contacts_view_on_contact_page()
+    if len(db.get_contact_list()) == 0:
         contact = Contact(firstname="Ann", middlename="AT", lastname="Arner", nickname="Tee")
         app.contact.create(contact)
     old_contacts = db.get_contact_list()
@@ -214,7 +215,6 @@ def test_update_some_contact(app, db, check_ui):
     # Count contacts
     new_contact = Contact("", "", "", "")
     new_contact.id = contact.id
-    assert len(old_contacts) == app.contact.count()
     # Check contacts list
     old_contacts.remove(contact)
     old_contacts.append(new_contact)

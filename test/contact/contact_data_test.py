@@ -3,7 +3,7 @@ from model.contact_data import Contact
 
 
 def test_check_all_contacts_on_main_page(app, db):
-    if app.contact.count() == 0:
+    if len(db.get_contact_list()) == 0:
         contact = Contact(firstname="Ann", middlename="AT", lastname="Arner", nickname="Tee")
         contact.set_phones(home="3321123", mobile="+792938232", work="44142221", second_phone="+791229313", fax="2123")
         app.contact.create(contact)

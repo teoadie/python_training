@@ -115,11 +115,12 @@ def test_delete_several_selected_groups(app, db, check_ui):
 
 
 def test_delete_some_group(app, db, check_ui):
-    if app.group.count() == 0:
+    if len(db.get_group_list()) == 0:
         app.group.create(None)
     old_groups = db.get_group_list()
     # Create random index
     group = random.choice(old_groups)
+    # delete group
     app.group.delete_groups_by_ids([group.id])
     new_groups = db.get_group_list()
     old_groups.remove(group)

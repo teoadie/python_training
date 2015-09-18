@@ -23,7 +23,8 @@ class GroupUtils:
     def open_groups_page(self):
         # Open groups page
         wd = self.app.wd
-        wd.find_element_by_link_text("groups").click()
+        if not ((len(wd.find_elements_by_name("new")) != 0) and (wd.current_url.endswith("/group.php"))):
+            wd.find_element_by_link_text("groups").click()
 
     def return_to_groups_page(self):
         # Return to group page
@@ -32,6 +33,7 @@ class GroupUtils:
             wd.find_element_by_link_text("group page").click()
 
     def delete_all_groups(self):
+        self.open_groups_page()
         # Select all existing groups and delete them
         self.groups_page.select_all_groups()
         self.groups_page.click_delete_button()
@@ -40,6 +42,7 @@ class GroupUtils:
         self.group_cache = None
 
     def delete_selected_groups(self, groups_positions):
+        self.open_groups_page()
         # Select every group from list
         for position in groups_positions:
             self.groups_page.select_group(position)
@@ -48,6 +51,7 @@ class GroupUtils:
         self.group_cache = None
 
     def delete_groups_by_ids(self, id_list):
+        self.open_groups_page()
         # Select every group from list
         for group_id in id_list:
             self.groups_page.select_group_by_id(group_id)
@@ -56,18 +60,21 @@ class GroupUtils:
         self.group_cache = None
 
     def update_groups_by_ids(self, id_list, group):
+        self.open_groups_page()
         # Select every group from list
         for group_id in id_list:
             self.groups_page.select_group_by_id(group_id)
         self.update_group_after_selection(group)
 
     def update_selected_groups(self, groups_positions, group):
+        self.open_groups_page()
         # Select every group from list
         for position in groups_positions:
             self.groups_page.select_group(position)
         self.update_group_after_selection(group)
 
     def update_group_after_selection(self, group):
+        self.open_groups_page()
         # Click edit group button
         self.groups_page.click_edit_group_button()
         # Fill group data

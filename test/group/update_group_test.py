@@ -118,7 +118,7 @@ def test_update_several_groups(app, db, check_ui):
 
 
 def test_update_some_group(app, db, check_ui):
-    if app.group.count() == 0:
+    if len(db.get_group_list()) == 0:
         first_group = Group(name='First', header='FG', footer='Group1')
         app.group.create(first_group)
     old_groups = db.get_group_list()

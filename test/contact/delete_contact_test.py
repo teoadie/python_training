@@ -126,7 +126,8 @@ def test_delete_several_selected_contacts(app, db, check_ui):
 
 
 def test_delete_some_contact(app, db, check_ui):
-    if app.contact.count() == 0:
+    app.contact.set_default_contacts_view_on_contact_page()
+    if len(db.get_contact_list()) == 0:
         app.contact.create(None)
     old_contacts = db.get_contact_list()
     contact = random.choice(old_contacts)
